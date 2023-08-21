@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import '../styles/App.css';
-import Drivers from './Drivers';
+import Drivers from './Drivers/Drivers';
 import Header from './Header';
 import SideMenu from './SideMenu';
 

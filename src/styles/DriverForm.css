@@ -1,0 +1,6 @@
+.search {
+    display: flex;
+    background-color: rgb(227, 226, 226);
+    justify-content: space-around;
+    padding: 1px;
+}

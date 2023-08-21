@@ -1,0 +1,12 @@
+.input-number {
+    width: 32px;
+    text-align: center;
+  }
+
+.search-op {
+    background-color: rgb(227, 226, 226);
+    border: none;
+    font-weight: bold;
+    margin-left: 3px;
+    margin-right: 3px;
+}

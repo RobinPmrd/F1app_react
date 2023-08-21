@@ -1,6 +1,6 @@
 import React from 'react';
-import "../styles/DriverReview.css"
-import { Driver, nationalityToFlag } from "../utils";
+import "../../styles/DriverReview.css"
+import { Driver, nationalityToFlag } from "../../utils";
 
 interface IProps {
     driver : Driver,
@@ -8,9 +8,9 @@ interface IProps {
 
 function DriverReview({driver} : IProps) {
     try {
-        var images = require(`../images/${driver.driverRef}.png`);
+        var images = require(`../../images/${driver.driverRef}.png`);
     } catch (error) {
-        images = require("../images/unknown.jpg");
+        images = require("../../images/unknown.jpg");
     }
     const age = () => {
         let dob = new Date(driver.dob);

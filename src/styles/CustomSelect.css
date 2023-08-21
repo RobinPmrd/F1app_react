@@ -1,6 +1,6 @@
-/* .custom-select-container {
-    margin-bottom: 20px;
-} */
+.custom-select-container {
+    display: flex;
+}
 
 .custom-select {
     position: relative;
