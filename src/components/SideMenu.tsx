@@ -1,9 +1,14 @@
+import React from 'react';
 import "../styles/SideMenu.css"
 
-function SideMenu({setPage}) {
+interface IProps {
+    setPage : React.Dispatch<React.SetStateAction<string>>
+}
+
+function SideMenu({setPage} : IProps) {
     return (
         <nav className="side-menu">
-            <ul className="menu-list" onClick={(e) => setPage(e.target.textContent)}>
+            <ul className="menu-list" onClick={(e) => setPage((e.target as HTMLLIElement).textContent!)}>
                 <li>Home</li>
                 <li>Drivers</li>
                 <li>Teams</li>

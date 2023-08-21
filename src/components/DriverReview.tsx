@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
+import React from 'react';
 import "../styles/DriverReview.css"
-import { nationalityToFlag } from "../utils";
+import { Driver, nationalityToFlag } from "../utils";
 
-function DriverReview({driver, isLoading, setIsloading}) {
-    const [image, setImage] = useState(null);
+interface IProps {
+    driver : Driver,
+}
+
+function DriverReview({driver} : IProps) {
     try {
         var images = require(`../images/${driver.driverRef}.png`);
     } catch (error) {
@@ -19,7 +22,7 @@ function DriverReview({driver, isLoading, setIsloading}) {
 
     return (
         <div className="driver-review">
-            {<img className="driver-avatar" src={images} alt={driver.surname}></img>}
+            <img className="driver-avatar" src={images} alt={driver.surname}></img>
             <p className="driver-name">{`${driver.forename} ${driver.surname}`}</p>
             <p className="driver-nationality">
                 <span className={`fi fi-${nationalityToFlag[driver.nationality]}`}></span>
