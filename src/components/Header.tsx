@@ -1,6 +1,6 @@
 import React from 'react';
 import "../styles/Header.css"
-import logo from "../images/f1_logo.png"
+import logo from "../images/drivers/f1_logo.png"
 
 interface IProps {
     headerText: string

@@ -1,4 +1,4 @@
-.driver-review {
+.team-review{
     /* flex-grow: 1; */
     display: flex;
     flex-direction: column;
@@ -14,63 +14,57 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border: 5px solid rgb(150, 54, 191);
     margin: 2px;
-}
+    }
     
-.driver-avatar {
+.team-logo {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
 }
 
-.driver-name {
+.team-name {
     margin-top: 10px;
     font-size: 20px;
     font-weight: bold;
     text-align: center;
 }
 
-.driver-nationality::before {
+.team-nationality::before {
     content: "Nationality: ";
     font-weight: bold;
 }
 
-.driver-nationality {
+.team-nationality {
     margin: 3px;
     text-align: center;
 }
 
-.driver-age::before {
-    content: "Age: ";
-    font-weight: bold;
-}
-
-.driver-age {
-margin: 3px;
-}
-
-.driver-races::before {
-    content: "Races: ";
-    font-weight: bold;
-}
-
-.driver-races {
-    margin: 3px;
-}
-
-.driver-wins::before {
-    content: "Wins: ";
-    font-weight: bold;
-}
-
-.driver-wins {
-    margin: 3px;
-}
-
-.driver-titles::before {
+.team-titles::before {
     content: "Titles: ";
     font-weight: bold;
 }
 
-.driver-titles {
+.team-titles {
     margin: 3px;
+}
+
+.team-races::before {
+    content: "Races: ";
+    font-weight: bold;
+}
+
+.team-races {
+    margin: 3px;
+}
+
+.team-wins::before {
+    content: "Wins: ";
+    font-weight: bold;
+}
+
+.team-wins {
+    margin: 3px;
+}
+
+.fi {
+    border-radius: 5px;
 }

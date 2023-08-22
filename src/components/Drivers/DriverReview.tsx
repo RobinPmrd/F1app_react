@@ -8,9 +8,9 @@ interface IProps {
 
 function DriverReview({driver} : IProps) {
     try {
-        var images = require(`../../images/${driver.driverRef}.png`);
+        var images = require(`../../images/drivers/${driver.driverRef}.png`);
     } catch (error) {
-        images = require("../../images/unknown.jpg");
+        images = require("../../images/drivers/unknown.jpg");
     }
     const age = () => {
         let dob = new Date(driver.dob);
@@ -28,8 +28,9 @@ function DriverReview({driver} : IProps) {
                 <span className={`fi fi-${nationalityToFlag[driver.nationality]}`}></span>
             </p>
             <p className="driver-age">{age()}</p>
-            <p className="driver-titles">{driver.titles}</p>
             <p className="driver-races">{driver.grandprix}</p>
+            <p className="driver-wins">{driver.wins}</p>
+            <p className="driver-titles">{driver.titles}</p>
         </div>
     )
 }

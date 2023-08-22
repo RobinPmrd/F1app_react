@@ -160,3 +160,14 @@ export interface Driver {
     highestGridPosition : number,
     highestRacePosition : number
 }
+
+export interface Team {
+    id : number,
+    constructorRef : string,
+    name : string,
+    nationality : string,
+    url : string,
+    titles : number,
+    races : number,
+    wins : number,
+}

@@ -5,7 +5,7 @@ import "../../styles/LoadingSpinner.css"
 import {API_URL, Driver} from "../../utils"
 import { useState } from "react";
 import DriverReview from "./DriverReview";
-import DriverForm from './DriverForm';
+import DriverForm from './DriversForm';
 
 function Drivers() {
     const [drivers, setDrivers] = useState<Driver[]>([]);
