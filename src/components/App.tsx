@@ -7,12 +7,15 @@ import SideMenu from './SideMenu';
 
 function App() {
   const [page, setPage] = useState<string>("home");
+  const [headerText, setHeaderText] = useState<string>("Welcome to the Formula 1 App")
+
   return (
       <div className='body'>
-        <Header />
+        <Header headerText={headerText}/>
         <main>
-          <SideMenu setPage={setPage}/>
-          {page === "Drivers" && <Drivers />}
+          <SideMenu setPage={setPage} setHeaderText={setHeaderText}/>
+          {page === "Drivers" && 
+          <Drivers />}
         </main>
       </div>
   )

@@ -44,7 +44,7 @@ function DriverForm({drivers, setWantedDrivers} : IProps) {
             <CustomInputNumber label={"N° races"} setOp={setInputRacesOp} setValue={setInputRaces} max={380} step={10} />
             <CustomSelect label="Nationality :" selectedNationality={inputNationality} setSelectedNationality={setInputNationality}/>
             <button type="submit" name="search-button" className="search-button">🔎</button>
-            <SortRadioButton sortBy={["surname", "titles", "dob", "grandprix"]} setSortedValue={setInputSortBy} setSortOrder={setInputSortOrder} />
+            <SortRadioButton sortBy={[{surname : "Name"}, {titles : "Titles"}, {dob : "Age"}, {grandprix : "Races"}]} setSortedValue={setInputSortBy} setSortOrder={setInputSortOrder} />
         </form>
     )
 }
