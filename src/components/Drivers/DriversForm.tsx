@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import CustomSelect from "../Customs/CustomSelect";
-import { Driver, compare, sort } from "../../utils";
+import { Driver, compare, nationalityToFlag, sort } from "../../utils";
 import "../../styles/DriverForm.css"
 import CustomInputNumber from "../Customs/CustomInputNumber";
 import InputSuggestion from "../Customs/InputSuggestion";
@@ -8,7 +8,7 @@ import SortRadioButton from "../Customs/SortRadioButton";
 
 interface IProps {
     drivers : Driver[]
-    setWantedDrivers : React.Dispatch<React.SetStateAction<Driver[]>>
+    setWantedDrivers : React.Dispatch<React.SetStateAction<Driver[]>>,
 }
 
 function DriverForm({drivers, setWantedDrivers} : IProps) {
@@ -42,7 +42,7 @@ function DriverForm({drivers, setWantedDrivers} : IProps) {
             <CustomInputNumber label={"N° titles"} setOp={setInputTitlesOp} setValue={setInputTitles} max={7} step={1} />
             <CustomInputNumber label={"N° wins"} setOp={setInputWinsOp} setValue={setInputWins} max={110} step={5} />
             <CustomInputNumber label={"N° races"} setOp={setInputRacesOp} setValue={setInputRaces} max={380} step={10} />
-            <CustomSelect label="Nationality :" selectedNationality={inputNationality} setSelectedNationality={setInputNationality}/>
+            <CustomSelect label="Nationality :" selectedNationality={inputNationality} setSelectedNationality={setInputNationality} ToFlag={nationalityToFlag}/>
             <button type="submit" name="search-button" className="search-button">🔎</button>
             <SortRadioButton sortBy={[{surname : "Name"}, {dob : "Age"}, {grandprix : "Races"}, {wins : "Wins"}, {titles : "Titles"}]} setSortedValue={setInputSortBy} setSortOrder={setInputSortOrder} />
         </form>

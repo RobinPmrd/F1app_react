@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import "../../styles/DriverReview.css"
 import { Driver, nationalityToFlag } from "../../utils";
 

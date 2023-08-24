@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../../styles/CustomSelect.css"; // Import your custom CSS file
-import { handleClickOutside, nationalityToFlag } from "../../utils";
+import { NationalityToFlag, handleClickOutside } from "../../utils";
 
 interface IProps {
     label: string,
     selectedNationality : string,
-    setSelectedNationality: React.Dispatch<React.SetStateAction<string>>
+    setSelectedNationality: React.Dispatch<React.SetStateAction<string>>,
+    ToFlag: NationalityToFlag
 }
 
-function CustomSelect({label, selectedNationality , setSelectedNationality} : IProps) {
+function CustomSelect({label, selectedNationality , setSelectedNationality, ToFlag} : IProps) {
     const [isOpen, setIsOpen] = useState(false);
     const refList = useRef<HTMLUListElement>(null)
 
@@ -26,13 +27,13 @@ function CustomSelect({label, selectedNationality , setSelectedNationality} : IP
             <label htmlFor="search-nationality">{label}</label>
             <div>
                 <div className="custom-select" onClick={() => setIsOpen(!isOpen)}>
-                {selectedNationality !== "All" ? <span className={`fi fi-${nationalityToFlag[selectedNationality]}`}></span> : "All"}
+                {selectedNationality !== "All" ? <span className={`fi fi-${ToFlag[selectedNationality]}`}></span> : "All"}
                 {isOpen && 
                     <ul ref={refList} className={`options-list`}>
                         <li key={"All"} className={`option ${selectedNationality === "All" ? "selected" : ""}`} onClick={() => handleOptionSelect("All")}>All</li>
-                        {Object.keys(nationalityToFlag).map((nationality) => (
+                        {Object.keys(ToFlag).map((nationality) => (
                             <li key={nationality} className={`option ${selectedNationality === nationality ? "selected" : ""}`} onClick={() => handleOptionSelect(nationality)}>
-                                <span className={`fi fi-${nationalityToFlag[nationality]}`}></span>
+                                <span className={`fi fi-${ToFlag[nationality]}`}></span>
                             </li>
                         ))}
                     </ul>}

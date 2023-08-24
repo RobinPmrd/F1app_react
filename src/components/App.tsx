@@ -5,6 +5,7 @@ import Drivers from './Drivers/Drivers';
 import Header from './Header';
 import SideMenu from './SideMenu';
 import Teams from './Teams/Teams';
+import Races from './Races/Races';
 
 function App() {
   const [page, setPage] = useState<string>("home");
@@ -16,8 +17,9 @@ function App() {
         <main>
           <SideMenu setPage={setPage} setHeaderText={setHeaderText}/>
           {page === "Drivers" ? 
-          <Drivers /> : page === "Teams" &&
-          <Teams />}
+          <Drivers /> : page === "Teams" ?
+          <Teams /> : page === "Races" &&
+          <Races setHeaderText={setHeaderText}/>}
         </main>
       </div>
   )

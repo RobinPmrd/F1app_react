@@ -1,6 +1,6 @@
 export const API_URL = "http://192.168.0.20:8080"
 
-interface NationalityToFlag {
+export interface NationalityToFlag {
     [key: string]: string;
 };
 
@@ -170,4 +170,83 @@ export interface Team {
     titles : number,
     races : number,
     wins : number,
+}
+
+export interface Race {
+    id: number,
+    year: number,
+    round: number,
+    circuit: Circuit,
+    name: string,
+    date: Date,
+    time: string,
+    url: string,
+    winner: string
+}
+
+export interface Circuit {
+    id: number,
+    circuitRef: string,
+    name: string,
+    location: string,
+    country: string,
+    lat: number,
+    lng: number,
+    alt: number,
+    url: string,
+    races:  number
+}
+
+export interface DriverStandingRow {
+    position: number;
+    points: number;
+    forename: string;
+    surname: string;
+    team: string;
+    nationality: string;
+}
+
+export interface TeamStandingRow {
+    position: number;
+    points: number;
+    name: string;
+    nationality: string;
+}
+
+export interface Result {
+    id: number,
+    raceId: number,
+    driver: Driver,
+    constructor: Team,
+    number: number,
+    grid: number,
+    position: number,
+    positionText: string,
+    positionOrder: number
+    points: number,
+    laps: number,
+    time: string,
+    milliseconds: number,
+    fastestLap: number,
+    rank: number
+    fastestLapTime: string,
+    fastestLapSpeed: string
+    status: Status
+}
+
+export interface Qualifying {
+    id: number;
+    raceId: number;
+    driver: Driver;
+    constructor: Team;
+    number: number;
+    position: number;
+    q1: string;
+    q2: string;
+    q3: string;
+}
+
+export interface Status {
+    id: number;
+    status: string;
 }

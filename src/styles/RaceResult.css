@@ -1,0 +1,204 @@
+:root {
+    --mercedes-color: #00d2be;
+    --redbull-color: #0600ef;
+    --ferrari-color: #dc0000;
+    --hover-color: #38383f;
+    --mclaren-color: #ff8700;
+    --racing-point-color: #f596c8;
+    --renault-color: #fff500;
+    --alpine-color: #0090ff;
+    --haas-color: #FFFFFF;
+    --astonmartin-color: #006F62;
+    --alphatauri-color: #2B4562;
+    --alfaromeo-color: #900000;
+    --williams-color: #005AFF;
+    --torrorosso-color: #0032FF;
+    --catheram-color: #005030;
+    --bmwsauber-color: #ffffff;
+    --hrt-color: #D6C39A; 
+    --manor-color: #006DC1;
+    --lotus-color: #86995B;
+  }
+  
+  .driver-table-container {
+    /* width: 60%;
+    min-width: 600px; */
+    margin: 20px;
+    margin-top: 20px;
+    border-collapse: separate;
+    border-spacing: 0px;
+  }
+  
+  caption {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    /* Add more styles as needed */
+  }
+  
+  /* Horizontally align content to the right in the second column */
+  .driver-table-container tr td:nth-child(1) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-left: 1px solid #ccc;
+    border-radius: 10px 0 0 10px;
+  }
+  
+  /* Select all td elements in the last row of the table */
+  .driver-table-container tr:last-child td {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .driver-table-container tr td:nth-child(4) {
+    border-right: 1px solid #ccc;
+    border-radius: 0 10px 10px 0;
+  }
+  
+  .driver-table-container tr th:nth-child(1) {
+    border-left: 1px solid #ccc;
+    border-radius: 10px 0 0 10px;
+  }
+  
+  .driver-table-container tr th:nth-child(4) {
+    border-right: 1px solid #ccc;
+    border-radius: 0 10px 10px 0;
+  }
+  
+  
+  .driver-table-container tr {
+    padding: 0;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  
+  .driver-table-container tr.table-content th {
+    /* display: none; */
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 8px;
+    border-top: 1px solid #ccc;
+    background-color: #f9f8f8;
+  }
+  
+  .driver-table-container tr.table-content td {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 8px;
+    border-top: 1px solid #ccc;
+    background-color: #f9f8f8;
+  }
+  
+  
+  
+  .driver-table-container tr.table-content td .position {
+    border-right: 5px solid var(--mercedes-color);
+    padding-right: 10px;
+    font-weight: bold;
+  }
+  
+  .driver-table-container tr.table-content td .driver-name {
+    margin: 0;
+    margin-left: 10px;
+    margin-right: 5px;
+  }
+  
+  .driver-table-container tr.table-content td .driver-surname {
+    font-weight: bolder;
+    text-transform: uppercase;
+    margin-right: 5px;
+  }
+  
+  .driver-table-container tr.table-content td .team {
+    font-size: 1rem;
+    color: #666;
+    margin-left: 10px;
+  }
+  
+  .driver-table-container tr.table-content td .points {
+    background-color: #ccc;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    padding: 0 10px;
+  }
+  
+  
+  .driver-table-container tr.table-content td i {
+    margin-left: 20px;
+    color: #e10600;
+    font-size: 18px;
+  }
+  
+  /* HOVER */
+  
+  .driver-table-container tr:hover td{
+    background-color: var(--hover-color);
+    color: #ffffff;
+  }
+  
+  .driver-table-container tr:hover .points {
+    color: black;
+  }
+
+  .standings table .table-content.Ferrari .position {
+    border-right: 5px solid var(--ferrari-color);
+  }
+  
+  .standings table .table-content.McLaren .position {
+    border-right: 5px solid var(--mclaren-color);
+  }
+  
+  .standings table .table-content.RedBull .position {
+    border-right: 5px solid var(--redbull-color);
+  }
+  
+  .standings table .table-content.RacingPoint .position {
+    border-right: 5px solid var(--racing-point-color);
+  }
+  
+  .standings table .table-content.AstonMartin .position {
+    border-right: 5px solid var(--astonmartin-color);
+  }
+  
+  .standings table .table-content.Renault .position {
+    border-right: 5px solid var(--renault-color);
+  }
+  
+  .standings table .table-content.AlpineF1Team .position {
+    border-right: 5px solid var(--alpine-color);
+  }
+  
+  .standings table .table-content.AlphaTauri .position {
+    border-right: 5px solid var(--alphatauri-color);
+  }
+  
+  .standings table .table-content.AlfaRomeo .position {
+    border-right: 5px solid var(--alfaromeo-color);
+  }
+  
+  .standings table .table-content.Williams .position {
+    border-right: 5px solid var(--williams-color);
+  }
+  
+  .standings table .table-content.HaasF1Team .position {
+    border-right: 5px solid var(--haas-color);
+  }
+  
+  .standings table .table-content.ToroRosso .position {
+    border-right: 5px solid var(--torrorosso-color);
+  }
+  
+  .standings table .table-content.ForceIndia .position {
+    border-right: 5px solid var(--racing-point-color);
+  }
+  
+  .standings table .table-content.Sauber .position {
+    border-right: 5px solid var(--alfaromeo-color);
+  }
+  
+  .standings table .table-content.LotusF1 .position {
+    border-right: 5px solid var(--lotus-color);
+  }

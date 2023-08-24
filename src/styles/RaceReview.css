@@ -1,0 +1,73 @@
+.race-review{
+    /* flex-grow: 1; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0px;
+    background-color: #f5f5f5;
+    width: 13%;
+    padding: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 5px solid rgb(150, 54, 191);
+    margin: 2px;
+    }
+  
+  .race-review:hover {
+    background-color: #38383f;
+    color: #ffffff;
+  }
+    
+  .race-image{
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
+  }
+  
+  .race-name {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  }
+  
+  
+  .circuit-country {
+    margin: 5px;
+  }
+  
+  .circuit-name::before {
+    content: "Circuit: ";
+    font-weight: bold;
+    }
+    
+  .circuit-name {
+    margin: 5px;
+    text-align: center;
+  }
+  
+  .race-year::before {
+  content: "Year: ";
+  font-weight: bold;
+  }
+  
+  .race-year {
+    margin: 5px;
+  }
+  
+  .race-round::before {
+    content: "Round: ";
+    font-weight: bold;
+    }
+    
+  .race-round {
+    margin: 5px;
+  }
+
+.race-review .fi {
+    border-radius: 25%;
+    width: 100px;
+    height: 50px;
+}

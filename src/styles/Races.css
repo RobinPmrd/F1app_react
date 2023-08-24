@@ -1,0 +1,12 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+.race-reviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 7px;
+}
