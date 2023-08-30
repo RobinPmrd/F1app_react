@@ -7,10 +7,11 @@ import QualifyingResult from "./QualifyingResult";
 interface IProps {
     race: Race,
     setShowRaceResult: React.Dispatch<React.SetStateAction<boolean>>,
-    setHeaderText: React.Dispatch<React.SetStateAction<string>>
+    setHeaderText: React.Dispatch<React.SetStateAction<string>>,
+    fromPage: string
 }
 
-function RaceInfo({race, setShowRaceResult, setHeaderText}: IProps) {
+function RaceInfo({race, setShowRaceResult, setHeaderText, fromPage}: IProps) {
     const[results, setResults] = useState<Result[]>([]);
     const[qualifying, setQualifying] = useState<Qualifying[]>([]);
 
@@ -27,7 +28,7 @@ function RaceInfo({race, setShowRaceResult, setHeaderText}: IProps) {
     return (
         <div className="content">
             <div className="button-container">
-                <button onClick={() => {setShowRaceResult(false); setHeaderText("Races")}}>X</button>
+                <button onClick={() => {setShowRaceResult(false); setHeaderText(fromPage)}}>X</button>
             </div>
             <div className="race-details">
                 <p data-label={"Circuit: "}>{race.circuit.name}</p>

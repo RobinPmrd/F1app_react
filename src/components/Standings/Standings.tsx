@@ -59,7 +59,7 @@ function Standings({setHeaderText}: IProps) {
                     <TeamStanding teamStanding={teamStanding}/>
                 </div>
             </div> :
-            <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText}/>
+            <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText} fromPage="Standings"/>
             }
         </div>
     )
