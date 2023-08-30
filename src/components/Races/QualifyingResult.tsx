@@ -1,6 +1,5 @@
 import React from "react"
 import { Qualifying, nationalityToFlag } from "../../utils"
-import "../../styles/RaceResult.css"
 
 interface IProps {
     results: Qualifying[]
@@ -9,7 +8,7 @@ interface IProps {
 function QualifyingResult({results}: IProps) {
 
     return (
-        <table className="driver-table-container" id="race">
+        <table className="standing-table race" id="race">
             <caption>Qualifying</caption>
             <thead>
                 <tr className="table-content">

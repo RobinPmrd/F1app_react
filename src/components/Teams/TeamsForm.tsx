@@ -1,7 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import CustomSelect from "../Customs/CustomSelect";
 import { Team, compare, nationalityToFlag, sort } from "../../utils";
-import "../../styles/DriverForm.css"
 import CustomInputNumber from "../Customs/CustomInputNumber";
 import InputSuggestion from "../Customs/InputSuggestion";
 import SortRadioButton from "../Customs/SortRadioButton";

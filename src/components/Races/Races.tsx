@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import RacesForm from "./RacesForm";
-import "../../styles/Races.css"
 import { API_URL, Race } from "../../utils";
 import RaceReview from "./RaceReview";
 import RaceInfo from "./RaceInfo";
@@ -30,7 +29,7 @@ function Races({setHeaderText}: IProps) {
             {!showRaceResult ?
             <div>
                 <RacesForm races={races} wantedRaces={wantedRaces} setWantedRaces={setWantedRaces}/>
-                <section className="race-reviews">
+                <section className="reviews">
                     {wantedRaces.map(race => (
                             <RaceReview key={race.id} race={race} setSelectedRace={setSelectedRace!} setShowRaceResult={setShowRaceResult}/>
                     ))}

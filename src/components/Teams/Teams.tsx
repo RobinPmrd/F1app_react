@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { API_URL, Team } from "../../utils"
 import TeamsForm from "./TeamsForm";
-import "../../styles/Teams.css"
 import TeamReview from "./TeamReview";
 
 function Teams() {
@@ -27,7 +26,7 @@ function Teams() {
                 {/* Add your loading spinner component or animation here */}
             </div>
         ) :
-            <section className="team-reviews">
+            <section className="reviews">
                 {wantedteams.map(team => (
                     <TeamReview key={team.id} team={team} />
                 ))}

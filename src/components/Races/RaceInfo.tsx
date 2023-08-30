@@ -30,12 +30,12 @@ function RaceInfo({race, setShowRaceResult, setHeaderText}: IProps) {
                 <button onClick={() => {setShowRaceResult(false); setHeaderText("Races")}}>X</button>
             </div>
             <div className="race-details">
-                <p className="circuit">{race.circuit.name}</p>
-                <p className="location">{race.circuit.location + ", " + race.circuit.country}</p>
-                <p className="date">{race.date.toString()}</p>
-                <p className="round">{race.round}</p>
+                <p data-label={"Circuit: "}>{race.circuit.name}</p>
+                <p data-label={"Location: "}>{race.circuit.location + ", " + race.circuit.country}</p>
+                <p data-label={"Date: "}>{race.date.toString()}</p>
+                <p data-label={"Round: "}>{race.round}</p>
             </div>
-            <section className="standings">
+            <section className="standings-vertically">
                 <RaceResult results={results}/>
                 <QualifyingResult  results={qualifying}/>
             </section>

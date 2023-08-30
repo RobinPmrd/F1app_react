@@ -1,6 +1,5 @@
 import React from "react"
 import { Result, nationalityToFlag } from "../../utils"
-import "../../styles/RaceResult.css"
 
 interface IProps {
     results: Result[]
@@ -9,7 +8,7 @@ interface IProps {
 function RaceResult({results}: IProps) {
 
     return (
-        <table className="driver-table-container" id="race">
+        <table className="standing-table race" id="race">
             <caption>Race</caption>
             <thead>
                 <tr className="table-content">

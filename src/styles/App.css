@@ -10,3 +10,20 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.reviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.fi {
+    width: 20px;
+    border-radius: 5px;
+}

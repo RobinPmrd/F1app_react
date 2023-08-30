@@ -1,52 +1,20 @@
-.content {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.fi {
-    width: 20px;
-    border-radius: 5px;
-}
-
 .race-details{
-    display: flex;
-    border: 6px solid #d61e1e;
-    border-radius: 10px;
-    justify-content: space-around;
-    margin: 0 10px 0 10px;
-  }
+  display: flex;
+  border: 6px solid #d61e1e;
+  border-radius: 10px;
+  justify-content: space-around;
+  margin: 0 10px 0 10px;
+}
   
-  .race-details p {
-    font-size: 1.3em;
-  }
-  
-  .circuit::before {
-    content: "Circuit: ";
-    font-weight: bold;
-  }
-  
-  .location::before {
-    content: "Location: ";
-    font-weight: bold;
-  }
-  
-  .date::before {
-    content: "Date: ";
-    font-weight: bold;
-  }
-  
-  .round::before {
-    content: "Round: ";
-    font-weight: bold;
-  }
-  
-  .standings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.race-details p {
+  font-size: 1.3em;
+}
 
+.race-details p::before {
+  content: attr(data-label);
+  font-weight: bold;
+}
+  
 .button-container{
     display: flex;
     justify-content: flex-end;

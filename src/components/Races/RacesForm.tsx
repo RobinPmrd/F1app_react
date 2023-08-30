@@ -63,7 +63,7 @@ function RacesForm({races, wantedRaces, setWantedRaces}: IProps) {
     return (
         <form className="search" onSubmit={e => handleSubmit(e)}>
             <CustomInputNumber label="Season" value={season ? season : -1} setValue={setSeason} min={1950} max={2023} />
-            <Select label="Circuit :" value={selectedcircuit} data={circuitNames} setSelectValue={setSelectedCircuit}/>
+            <Select label="Circuit :" value={selectedcircuit} data={circuitNames} setSelectValue={setSelectedCircuit} hasAll={true}/>
             <CustomSelect label="Country :" selectedNationality={country} setSelectedNationality={setCountry} ToFlag={countryToFlag}/>
             <InputSuggestion data={driverNames} defaultText="Winner.." inputValue={winner} setInputValue={setWinner} />
             <button type="submit" name="search-button" className="search-button">🔎</button>
