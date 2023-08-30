@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 import "../../styles/DriverReview.css"
 import { Driver, nationalityToFlag } from "../../utils";
 
@@ -20,6 +20,7 @@ function DriverReview({driver} : IProps) {
         return age;
     }
 
+
     return (
         <div className="driver-review">
             <img className="driver-avatar" src={images} alt={driver.surname}></img>
@@ -31,6 +32,7 @@ function DriverReview({driver} : IProps) {
             <p className="driver-races">{driver.grandprix}</p>
             <p className="driver-wins">{driver.wins}</p>
             <p className="driver-titles">{driver.titles}</p>
+            <p className='link'><a href={driver.url}>Get more</a></p>
         </div>
     )
 }
