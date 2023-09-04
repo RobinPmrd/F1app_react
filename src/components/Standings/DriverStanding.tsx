@@ -1,18 +1,30 @@
 import React from "react";
 import { DriverStandingRow, nationalityToFlag } from "../../utils";
+import { SelectedDriver } from "./Standings";
 
 interface IProps {
-    driverStanding: DriverStandingRow[]
+    driverStanding: DriverStandingRow[],
+    setSelectedDriver: React.Dispatch<React.SetStateAction<SelectedDriver | undefined>>,
+    setShowDriverSeason: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
-function DriverStanding({driverStanding}: IProps) {
+function DriverStanding({driverStanding, setSelectedDriver, setShowDriverSeason}: IProps) {
+
+    function handleOnClick(row: DriverStandingRow) {
+        setSelectedDriver({
+            id: row.driverId,
+            forename: row.forename,
+            surname: row.surname
+        });
+        setShowDriverSeason(true);
+    }
 
     return (
         <table className="standing-table champ">
             <caption>Drivers</caption>
             <tbody>
             {driverStanding.map(row => (
-                <tr key={row.position} className={`table-content ${row.team.replace(/ /g,'')}`}>
+                <tr key={row.position} className={`table-content ${row.team.replace(/ /g,'')}`} onClick={() => handleOnClick(row)}>
                     <td>
                         <span className="position">{row.position}</span>
                         <span className="driver-name">{row.forename}</span>

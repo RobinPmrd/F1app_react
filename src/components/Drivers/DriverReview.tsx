@@ -32,7 +32,7 @@ function DriverReview({driver} : IProps) {
             <p className="driver-races">{driver.grandprix}</p>
             <p className="driver-wins">{driver.wins}</p>
             <p className="driver-titles">{driver.titles}</p>
-            <p className='link'><a href={driver.url}>Get more</a></p>
+            <p className='link'><a href={driver.url} target="_blank" rel="noreferrer">Get more</a></p>
         </div>
     )
 }

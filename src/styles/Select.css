@@ -1,0 +1,30 @@
+.label-select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.label-select label {
+    margin-right: 5px;
+    font-size: 1.1rem;
+}
+
+.select-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.select-list li {
+    display: inline;
+    background-color: #d61e1e;
+    border-radius: 10%;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 6px;
+    margin: 5px;
+}
+
+.select-list li:hover {
+    cursor: pointer;
+}

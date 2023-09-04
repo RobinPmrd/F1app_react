@@ -1,23 +1,24 @@
 :root {
-  --mercedes-color: #00d2be;
-  --redbull-color: #0600ef;
-  --ferrari-color: #dc0000;
+  --Mercedes-color: #00d2be;
+  --RedBull-color: #0600ef;
+  --Ferrari-color: #dc0000;
   --hover-color: #38383f;
-  --mclaren-color: #ff8700;
-  --racing-point-color: #f596c8;
-  --renault-color: #fff500;
-  --alpine-color: #0090ff;
-  --haas-color: #FFFFFF;
-  --astonmartin-color: #006F62;
-  --alphatauri-color: #2B4562;
-  --alfaromeo-color: #900000;
-  --williams-color: #005AFF;
-  --torrorosso-color: #0032FF;
-  --catheram-color: #005030;
-  --bmwsauber-color: #ffffff;
-  --hrt-color: #D6C39A; 
-  --manor-color: #006DC1;
-  --lotus-color: #86995B;
+  --McLaren-color: #ff8700;
+  --RacingPoint-color: #f596c8;
+  --ForceIndia-color: #f596c8;
+  --Renault-color: #fff500;
+  --AlpineF1Team-color: #0090ff;
+  --HaasF1Team-color: #FFFFFF;
+  --AstonMartin-color: #006F62;
+  --AlphaTauri-color: #2B4562;
+  --AlfaRomeo-color: #900000;
+  --Williams-color: #005AFF;
+  --ToroRosso-color: #0032FF;
+  --Catheram-color: #005030;
+  --BmwSauber-color: #ffffff;
+  --Hrt-color: #D6C39A; 
+  --Manor-color: #006DC1;
+  --Lotus-color: #86995B;
 }
 
 

@@ -1,4 +1,5 @@
-export const API_URL = "http://192.168.0.20:8080"
+// export const API_URL = "http://192.168.1.82:8080"
+export const API_URL = "http://192.168.0.15:8080"
 
 export interface NationalityToFlag {
     [key: string]: string;
@@ -200,6 +201,7 @@ export interface Circuit {
 export interface DriverStandingRow {
     position: number;
     points: number;
+    driverId: number;
     forename: string;
     surname: string;
     team: string;
@@ -249,4 +251,14 @@ export interface Qualifying {
 export interface Status {
     id: number;
     status: string;
+}
+
+export interface DriverStanding {
+    driverStandingsId: number,
+    raceId: number,
+    driverId: number,
+    points: number,
+    position: number,
+    positionText: string,
+    wins: number
 }

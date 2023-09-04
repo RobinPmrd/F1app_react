@@ -1,0 +1,113 @@
+
+.driver-season-details {
+    display: flex;
+    justify-content: space-around;
+    border: 6px solid #d61e1e;
+    border-radius: 10px;
+    width: 70%;
+    margin: auto;
+}
+
+.driver-season-details p::before {
+    content: attr(data-label);
+    font-weight: bold;
+}
+
+.driver-season-details p{
+    font-size: 1.3em;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.middle-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-container p {
+    margin: 0
+}
+
+.left-container .team {
+    font-size: 1em;
+    color: #666;
+}
+
+.graph-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.radio-buttons {
+    height: 50%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 70px;
+    padding: auto;
+}
+
+.line {
+    width: 60%;
+    background-color: #f5f5f5;
+    border-radius: 5%;
+    margin-top: 10px;
+}
+
+.select-container {
+    margin-top: 55px;
+    width: 20%;
+}
+
+.radio-buttons input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  /* For a circular appearance we need a border-radius. */
+  border-radius: 50%;
+
+  background: white;
+  /* The border will be the spacing between the dot and the outer circle */
+  border: 4px solid #FFF;
+
+  /* And by creating a box-shadow with no offset and no blur, we have an outer circle */
+  box-shadow: 0 0 0 4px #FF5722;
+}
+
+.radio-buttons input:checked {
+  /* The background will be the radio dot's color. */
+  background: #FF5722;
+}
+
+.label-input-container {
+  display: flex;
+  align-items: center;
+  background-color: #666;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.label-input-container label{
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+  margin-right: 5px;
+}
