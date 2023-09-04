@@ -64,7 +64,7 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
             position: 'left' as const,
             reverse: graphData !== "points",
             min: graphData !== "points" ? 1 : 0,
-            max: graphData !== "points" ? 20 : undefined,
+            max: graphData === "points" ? undefined : graphData === "standing" ? otherDriverNames.length + 1 : 24,
             title: {
                 display: true,
                 text: graphData !== "points" ? "Position" : "Points"

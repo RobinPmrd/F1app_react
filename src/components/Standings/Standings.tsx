@@ -70,7 +70,7 @@ function Standings({setHeaderText}: IProps) {
             {showRaceResult ?
             <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText} fromPage="Standings"/>
             : showDriverSeason ?
-            <DriverSeason driver={selectedDriver!} season={selectedSeason} seasonRaces={seasonRaces} setHeaderText={setHeaderText} setShowDriverSeason={setShowDriverSeason} otherDriverNames={getOtherDrivers()}/>
+            <DriverSeason driver={selectedDriver!} season={selectedSeason} seasonRaces={seasonRaces} setHeaderText={setHeaderText} setShowDriverSeason={setShowDriverSeason} otherDriverNames={getOtherDrivers()} />
             :
             <div>
                 <StandingForm setSelectedRace={setSelectedRace} setSelectedSeason={setSelectedSeason} selectedRace={selectedRace} selectedSeason={selectedSeason} seasonRaces={seasonRaces}/>
