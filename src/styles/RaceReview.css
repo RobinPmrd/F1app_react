@@ -24,6 +24,11 @@
   height: 150px;
   border-radius: 20%;
 }
+
+.race-review p::before {
+  content: attr(data-label);
+  font-weight: bold;
+}
   
 .race-name {
   margin-top: 10px;

@@ -22,6 +22,12 @@
     border-radius: 50%;
 }
 
+.driver-review p::before {
+    content: attr(data-label);
+    font-weight: bold;
+}
+
+
 .driver-name {
     margin-top: 10px;
     font-size: 20px;
@@ -29,46 +35,22 @@
     text-align: center;
 }
 
-.driver-nationality::before {
-    content: "Nationality: ";
-    font-weight: bold;
-}
 
 .driver-nationality {
     margin: 3px;
     text-align: center;
 }
 
-.driver-age::before {
-    content: "Age: ";
-    font-weight: bold;
-}
-
 .driver-age {
 margin: 3px;
-}
-
-.driver-races::before {
-    content: "Races: ";
-    font-weight: bold;
 }
 
 .driver-races {
     margin: 3px;
 }
 
-.driver-wins::before {
-    content: "Wins: ";
-    font-weight: bold;
-}
-
 .driver-wins {
     margin: 3px;
-}
-
-.driver-titles::before {
-    content: "Titles: ";
-    font-weight: bold;
 }
 
 .driver-titles {

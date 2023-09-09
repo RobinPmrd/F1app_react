@@ -21,6 +21,11 @@
     height: 150px;
 }
 
+.team-review p::before {
+    content: attr(data-label);
+    font-weight: bold;
+}
+
 .team-name {
     margin-top: 10px;
     font-size: 20px;
@@ -28,37 +33,17 @@
     text-align: center;
 }
 
-.team-nationality::before {
-    content: "Nationality: ";
-    font-weight: bold;
-}
-
 .team-nationality {
     margin: 3px;
     text-align: center;
-}
-
-.team-titles::before {
-    content: "Titles: ";
-    font-weight: bold;
 }
 
 .team-titles {
     margin: 3px;
 }
 
-.team-races::before {
-    content: "Races: ";
-    font-weight: bold;
-}
-
 .team-races {
     margin: 3px;
-}
-
-.team-wins::before {
-    content: "Wins: ";
-    font-weight: bold;
 }
 
 .team-wins {

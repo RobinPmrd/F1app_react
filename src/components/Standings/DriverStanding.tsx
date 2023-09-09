@@ -1,6 +1,7 @@
 import React from "react";
 import { DriverStandingRow, nationalityToFlag } from "../../utils";
 import { SelectedDriver } from "./Standings";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     driverStanding: DriverStandingRow[],
@@ -9,6 +10,8 @@ interface IProps {
 }
 
 function DriverStanding({driverStanding, setSelectedDriver, setShowDriverSeason}: IProps) {
+
+    const {t} = useTranslation();
 
     function handleOnClick(row: DriverStandingRow) {
         setSelectedDriver({
@@ -21,7 +24,7 @@ function DriverStanding({driverStanding, setSelectedDriver, setShowDriverSeason}
 
     return (
         <table className="standing-table champ">
-            <caption>Drivers</caption>
+            <caption>{t("Drivers")}</caption>
             <tbody>
             {driverStanding.map(row => (
                 <tr key={row.position} className={`table-content ${row.team.replace(/ /g,'')}`} onClick={() => handleOnClick(row)}>

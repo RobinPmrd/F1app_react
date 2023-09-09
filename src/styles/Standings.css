@@ -118,7 +118,7 @@ tr.table-content td {
 }
 
 tr.table-content td .position {
-  border-right: 5px solid var(--mercedes-color);
+  border-right: 5px solid var(--Mercedes-color);
   padding-right: 10px;
   font-weight: bold;
 }
@@ -173,63 +173,63 @@ tr:hover .points {
 }
 
 table .table-content.Ferrari .position {
-  border-right: 5px solid var(--ferrari-color);
+  border-right: 5px solid var(--Ferrari-color);
 }
 
 table .table-content.McLaren .position {
-  border-right: 5px solid var(--mclaren-color);
+  border-right: 5px solid var(--McLaren-color);
 }
 
 table .table-content.RedBull .position {
-  border-right: 5px solid var(--redbull-color);
+  border-right: 5px solid var(--RedBull-color);
 }
 
 table .table-content.RacingPoint .position {
-  border-right: 5px solid var(--racing-point-color);
+  border-right: 5px solid var(--RacingPoint-color);
 }
 
 table .table-content.AstonMartin .position {
-  border-right: 5px solid var(--astonmartin-color);
+  border-right: 5px solid var(--AstonMartin-color);
 }
 
 table .table-content.Renault .position {
-  border-right: 5px solid var(--renault-color);
+  border-right: 5px solid var(--Renault-color);
 }
 
 table .table-content.AlpineF1Team .position {
-  border-right: 5px solid var(--alpine-color);
+  border-right: 5px solid var(--AlpineF1Team-color);
 }
 
 table .table-content.AlphaTauri .position {
-  border-right: 5px solid var(--alphatauri-color);
+  border-right: 5px solid var(--AlphaTauri-color);
 }
 
 table .table-content.AlfaRomeo .position {
-  border-right: 5px solid var(--alfaromeo-color);
+  border-right: 5px solid var(--AlfaRomeo-color);
 }
 
 table .table-content.Williams .position {
-  border-right: 5px solid var(--williams-color);
+  border-right: 5px solid var(--Williams-color);
 }
 
 table .table-content.HaasF1Team .position {
-  border-right: 5px solid var(--haas-color);
+  border-right: 5px solid var(--HaasF1Team-color);
 }
 
 table .table-content.ToroRosso .position {
-  border-right: 5px solid var(--torrorosso-color);
+  border-right: 5px solid var(--ToroRosso-color);
 }
 
 table .table-content.ForceIndia .position {
-  border-right: 5px solid var(--racing-point-color);
+  border-right: 5px solid var(--RacingPoint-color);
 }
 
 table .table-content.Sauber .position {
-  border-right: 5px solid var(--alfaromeo-color);
+  border-right: 5px solid var(--AlfaRomeo-color);
 }
 
 table .table-content.LotusF1 .position {
-  border-right: 5px solid var(--lotus-color);
+  border-right: 5px solid var(--Lotus-color);
 }
 
 .but-container {

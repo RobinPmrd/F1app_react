@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/Select.css"
 import { SelectedDriver } from "../Standings/Standings";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     label: string,
@@ -15,6 +16,7 @@ interface IProps {
 function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} : IProps) {
     const [selectedValues, setSelectedValues] = useState<SelectedDriver[]>([]);
     const [values, setValues] = useState<SelectedDriver[]>(data);
+    const {t} = useTranslation();
     
     function handleOnChange(value: string) {
         const va: SelectedDriver = JSON.parse(value);
@@ -40,7 +42,7 @@ function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} 
             <div className="label-select">
                 <label>{label}</label>
                 <select onChange={(e) => handleOnChange(e.target.value)}>
-                    <option key={"first"}>Select driver...</option>
+                    <option key={"first"}>{t("SelectDriver")}</option>
                     {values.map((v, index) => (
                         <option key={v.id}  value={JSON.stringify(v)}>{v.forename + " " + v.surname}</option>
                     ))}

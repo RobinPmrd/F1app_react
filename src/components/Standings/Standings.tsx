@@ -9,7 +9,8 @@ import DriverSeason from "./DriverSeason";
 
 
 interface IProps {
-    setHeaderText: React.Dispatch<React.SetStateAction<string>>
+    setHeaderText: React.Dispatch<React.SetStateAction<string>>,
+    setUpdateHeaderText: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export interface SelectedDriver {
@@ -18,7 +19,7 @@ export interface SelectedDriver {
     surname: string
 }
 
-function Standings({setHeaderText}: IProps) {
+function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
     const [driverStanding, setDriverStanding] = useState<DriverStandingRow[]>([]);
     const [teamStanding, setTeamStanding] = useState<TeamStandingRow[]>([]);
     const [showRaceResult, setShowRaceResult] = useState<boolean>(false);
@@ -68,9 +69,9 @@ function Standings({setHeaderText}: IProps) {
     return (
         <div className="content">
             {showRaceResult ?
-            <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText} fromPage="Standings"/>
+            <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText} fromPage="Standings" setUpdateHeaderText={setUpdateHeaderText}/>
             : showDriverSeason ?
-            <DriverSeason driver={selectedDriver!} season={selectedSeason} seasonRaces={seasonRaces} setHeaderText={setHeaderText} setShowDriverSeason={setShowDriverSeason} otherDriverNames={getOtherDrivers()} />
+            <DriverSeason driver={selectedDriver!} season={selectedSeason} seasonRaces={seasonRaces.sort((r1, r2) => r1.round - r2.round)} setHeaderText={setHeaderText} setUpdateHeadertext={setUpdateHeaderText} setShowDriverSeason={setShowDriverSeason} otherDriverNames={getOtherDrivers()} fromPage="Standings"/>
             :
             <div>
                 <StandingForm setSelectedRace={setSelectedRace} setSelectedSeason={setSelectedSeason} selectedRace={selectedRace} selectedSeason={selectedSeason} seasonRaces={seasonRaces}/>

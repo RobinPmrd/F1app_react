@@ -5,10 +5,11 @@ import RaceReview from "./RaceReview";
 import RaceInfo from "./RaceInfo";
 
 interface IProps {
-    setHeaderText: React.Dispatch<React.SetStateAction<string>>
+    setHeaderText: React.Dispatch<React.SetStateAction<string>>,
+    setUpdateHeaderText: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function Races({setHeaderText}: IProps) {
+function Races({setHeaderText, setUpdateHeaderText}: IProps) {
     const [races, setRaces] = useState<Race[]>([]);
     const [wantedRaces, setWantedRaces] = useState<Race[]>([]);
     const [showRaceResult, setShowRaceResult] = useState<boolean>(false);
@@ -35,7 +36,7 @@ function Races({setHeaderText}: IProps) {
                     ))}
                 </section>
             </div> :
-                <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText} fromPage="Races"/>
+                <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText} setUpdateHeaderText={setUpdateHeaderText} fromPage="Races"/>
             }
         </div>
     )

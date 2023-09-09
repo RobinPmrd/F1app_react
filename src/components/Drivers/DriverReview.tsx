@@ -1,12 +1,15 @@
 import React from 'react';
 import "../../styles/DriverReview.css"
 import { Driver, nationalityToFlag } from "../../utils";
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
     driver : Driver,
 }
 
 function DriverReview({driver} : IProps) {
+    const {t} = useTranslation();
+
     try {
         var images = require(`../../images/drivers/${driver.driverRef}.png`);
     } catch (error) {
@@ -25,14 +28,14 @@ function DriverReview({driver} : IProps) {
         <div className="driver-review">
             <img className="driver-avatar" src={images} alt={driver.surname}></img>
             <p className="driver-name">{`${driver.forename} ${driver.surname}`}</p>
-            <p className="driver-nationality">
+            <p data-label={`${t("Nationality")}: `} className="driver-nationality">
                 <span className={`fi fi-${nationalityToFlag[driver.nationality]}`}></span>
             </p>
-            <p className="driver-age">{age()}</p>
-            <p className="driver-races">{driver.grandprix}</p>
-            <p className="driver-wins">{driver.wins}</p>
-            <p className="driver-titles">{driver.titles}</p>
-            <p className='link'><a href={driver.url} target="_blank" rel="noreferrer">Get more</a></p>
+            <p data-label={`${t("Age")}: `} className="driver-age">{age()}</p>
+            <p data-label={`${t("Races")}: `} className="driver-races">{driver.grandprix}</p>
+            <p data-label={`${t("Wins")}: `} className="driver-wins">{driver.wins}</p>
+            <p data-label={`${t("Titles")}: `} className="driver-titles">{driver.titles}</p>
+            <p className='link'><a href={driver.url} target="_blank" rel="noreferrer">{t("GetMore")}</a></p>
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import React from "react"
-import { Race, countryToFlag } from "../../utils"
+import { Race, countryToFlag, getTranslatedRaceName } from "../../utils"
 import "../../styles/RaceReview.css"
+import { useTranslation } from "react-i18next"
 
 interface IProps {
     race: Race,
@@ -9,6 +10,8 @@ interface IProps {
 }
 
 function RaceReview({race, setSelectedRace, setShowRaceResult}: IProps) {
+    const {t} = useTranslation();
+    
     function onClickRaceReview() {
         setSelectedRace(race);
         setShowRaceResult(true);
@@ -23,10 +26,10 @@ function RaceReview({race, setSelectedRace, setShowRaceResult}: IProps) {
                 <span className={`fi fi-${countryToFlag[race.circuit.country]}`}></span>
             }
             </p>
-            <p className="race-name">{race.name}</p>
-            <p className="circuit-name">{race.circuit.name}</p>
-            <p className="race-year">{race.year}</p>
-            <p className="race-round">{race.round}</p>
+            <p className="race-name">{getTranslatedRaceName(race, t)}</p>
+            <p data-label="Circuit: " className="circuit-name">{race.circuit.name}</p>
+            <p data-label={`${t("Year")}: `} className="race-year">{race.year}</p>
+            <p data-label="Round: " className="race-round">{race.round}</p>
         </div>
     )
 }

@@ -1,20 +1,22 @@
 import React from "react"
 import { Result, nationalityToFlag } from "../../utils"
+import { useTranslation } from "react-i18next"
 
 interface IProps {
     results: Result[]
 }
 
 function RaceResult({results}: IProps) {
+    const {t} = useTranslation();
 
     return (
         <table className="standing-table race" id="race">
-            <caption>Race</caption>
+            <caption>{t("Race")}</caption>
             <thead>
                 <tr className="table-content">
                     <th></th>
-                    <th>Time</th>
-                    <th>Laps</th>
+                    <th>{t("Time")}</th>
+                    <th>{t("Laps")}</th>
                     <th>Points</th>
                 </tr>
             </thead>
@@ -29,7 +31,7 @@ function RaceResult({results}: IProps) {
                         <span className="team">{row.constructor.name}</span>
                     </td>
                     <td>
-                        <span className="points">{row.time != null ? `${row.time}` : row.status.status}</span>
+                        <span className="points">{row.time != null ? `${row.time}` : t("Status."+row.status.status)}</span>
                         <i className="fas fa-chevron-right"></i>
                     </td>
                     <td><span className="points">{row.laps}</span></td>

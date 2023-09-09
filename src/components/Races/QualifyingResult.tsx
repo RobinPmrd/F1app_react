@@ -1,15 +1,17 @@
 import React from "react"
 import { Qualifying, nationalityToFlag } from "../../utils"
+import { useTranslation } from "react-i18next"
 
 interface IProps {
     results: Qualifying[]
 }
 
 function QualifyingResult({results}: IProps) {
+    const {t} = useTranslation();
 
     return (
         <table className="standing-table race" id="race">
-            <caption>Qualifying</caption>
+            <caption>{t("Qualifying")}</caption>
             <thead>
                 <tr className="table-content">
                     <th></th>

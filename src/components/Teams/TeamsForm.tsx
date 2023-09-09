@@ -4,6 +4,7 @@ import { Team, compare, nationalityToFlag, sort } from "../../utils";
 import CustomInputNumber from "../Customs/CustomInputNumber";
 import InputSuggestion from "../Customs/InputSuggestion";
 import SortRadioButton from "../Customs/SortRadioButton";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     teams : Team[]
@@ -21,6 +22,7 @@ function TeamsForm({teams, setWantedTeams} : IProps) {
     const [inputNationality, setInputNationality] = useState<string>("All");
     const [inputSortBy, setInputSortBy] = useState<string>("surname");
     const [inputSortOrder, setInputSortOrder] = useState<string>("asc");
+    const {t} = useTranslation();
 
     const teamNames = teams.map(t => t.name);
 
@@ -37,13 +39,13 @@ function TeamsForm({teams, setWantedTeams} : IProps) {
 
     return (
         <form className="search" onSubmit={e => handleSubmit(e)}>
-            <InputSuggestion defaultText="Driver.." data={teamNames} inputValue={inputName} setInputValue={setInputName} />
-            <CustomInputNumber label={"N° titles"} setOp={setInputTitlesOp} setValue={setInputTitles} max={7} step={1} />
-            <CustomInputNumber label={"N° wins"} setOp={setInputWinsOp} setValue={setInputWins} max={110} step={5} />
-            <CustomInputNumber label={"N° races"} setOp={setInputRacesOp} setValue={setInputRaces} max={380} step={10} />
-            <CustomSelect label="Nationality :" selectedNationality={inputNationality} setSelectedNationality={setInputNationality} ToFlag={nationalityToFlag}/>
+            <InputSuggestion defaultText={`${t("Team")}..`} data={teamNames} inputValue={inputName} setInputValue={setInputName} />
+            <CustomInputNumber label={`N° ${t("Titles").toLowerCase()}`} setOp={setInputTitlesOp} setValue={setInputTitles} max={7} step={1} />
+            <CustomInputNumber label={`N° ${t("Wins").toLowerCase()}`} setOp={setInputWinsOp} setValue={setInputWins} max={110} step={5} />
+            <CustomInputNumber label={`N° ${t("Races").toLowerCase()}`} setOp={setInputRacesOp} setValue={setInputRaces} max={380} step={10} />
+            <CustomSelect label={`${t("Nationality")} :`} selectedNationality={inputNationality} setSelectedNationality={setInputNationality} ToFlag={nationalityToFlag}/>
             <button type="submit" name="search-button" className="search-button">🔎</button>
-            <SortRadioButton sortBy={[{name : "Name"}, {races : "Races"}, {wins : "Wins"}, {titles : "Titles"}]} setSortedValue={setInputSortBy} setSortOrder={setInputSortOrder} />
+            <SortRadioButton sortBy={[{name : t("Name")}, {races : t("Races")}, {wins : t("Wins")}, {titles : t("Titles")}]} setSortedValue={setInputSortBy} setSortOrder={setInputSortOrder} />
         </form>
     )
 }

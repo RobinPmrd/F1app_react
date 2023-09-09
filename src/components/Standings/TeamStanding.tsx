@@ -1,5 +1,6 @@
 import React from "react";
 import {TeamStandingRow, nationalityToFlag } from "../../utils";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     teamStanding: TeamStandingRow[]
@@ -7,9 +8,11 @@ interface IProps {
 
 function TeamStanding({teamStanding}: IProps) {
 
+    const {t} = useTranslation();
+
     return (
         <table className="standing-table champ">
-            <caption>Constructors</caption>
+            <caption>{t("Constructors")}</caption>
             <tbody>
             {teamStanding.map(row => (
                 <tr key={row.position} className={`table-content ${row.name.replace(/ /g,'')}`}>

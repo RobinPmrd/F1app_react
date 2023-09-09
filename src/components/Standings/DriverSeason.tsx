@@ -16,6 +16,7 @@ import {
   import { Line } from 'react-chartjs-2';
 import Select2 from "../Customs/Select2";
 import { SelectedDriver } from "./Standings";
+import { useTranslation } from "react-i18next";
   
   ChartJS.register(
     CategoryScale,
@@ -34,10 +35,11 @@ interface IProps {
     seasonRaces: Race[],
     setShowDriverSeason: React.Dispatch<React.SetStateAction<boolean>>,
     setHeaderText: React.Dispatch<React.SetStateAction<string>>,
-    fromPage?: string
+    setUpdateHeadertext: React.Dispatch<React.SetStateAction<boolean>>,
+    fromPage: string
 }
 
-function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDriverSeason, setHeaderText, fromPage}: IProps) {
+function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDriverSeason, setHeaderText, setUpdateHeadertext, fromPage}: IProps) {
     const[results, setResults] = useState<Result[]>([]);
     const[driverStandings, setDriverStandings] = useState<DriverStanding[]>([]);
     const[image, setImage] = useState<any>();
@@ -45,6 +47,7 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
     const[driversToCompare, setDriversToCompare] = useState<SelectedDriver[]>([]);
     const[driversToCompareResults, setDriversToCompareResults] = useState<Result[][]>([]);
     const[driversToCompareStandings, setDriversToCompareStandings] = useState<DriverStanding[][]>([]);
+    const {t} = useTranslation();
 
     const options = {
         responsive: true,
@@ -80,7 +83,7 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
     }
 
     function getGraphTitle(graphData: string): string {
-      return graphData !== "points" && graphData !== "standing" ?  `Season ${graphData} results` : `Season ${graphData} evolution`
+      return graphData !== "points" && graphData !== "standing" ? t("GraphTitle1", {graphData: t(graphData.charAt(0).toUpperCase()+graphData.slice(1)).toLowerCase()})  : graphData === "points" ? t("GraphTitle2") : t("GraphTitle3") 
     }
       
     const data = {
@@ -89,8 +92,9 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
     };
 
     useEffect(() => {
-        setHeaderText(`${season} Season`);
-    }, [setHeaderText, season])
+      setUpdateHeadertext(false);
+      setHeaderText(t("HeaderTextDriverSeason", {season: season}));
+    }, [setHeaderText, season, t, setUpdateHeadertext])
 
     useEffect(() => {
         fetch(API_URL+"/results/"+driver.forename+"/"+driver.surname+"/"+season)
@@ -98,7 +102,9 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
             .then(results => setResults(results));
         fetch(API_URL + "/standings/"+driver.id+"/"+seasonRaces.map(r => r.id))
           .then(resp => resp.json())
-          .then(ds => setDriverStandings(ds))
+          .then(ds => {
+            ds.sort((ds1: any, ds2:any) => seasonRaces.find(r => r.id === ds1.raceId)!.round - seasonRaces.find(r => r.id === ds2.raceId)!.round);
+            setDriverStandings(ds)})
     }, [driver, season, seasonRaces])
 
     useEffect(() => {
@@ -229,8 +235,9 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
     }
 
     function handleOnClick() {
-        setShowDriverSeason(false); 
-        if (fromPage) setHeaderText(fromPage);
+      setUpdateHeadertext(true);
+      setShowDriverSeason(false); 
+      setHeaderText(t(fromPage));
     }
 
     async function handleOnChangeSelect(newDriver:  SelectedDriver) {
@@ -275,12 +282,12 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
                     <p className="team">{results[0].constructor.name}</p>
                 </div>
                 <div className="middle-container">
-                    <p data-label={"Ranking: "}>{driverStandings[driverStandings.length - 1].position}</p>
-                    <p data-label={"Best finish: "}>{results.reduce((acc, re) => re.positionOrder < acc.positionOrder ? re : acc).positionOrder}</p>
+                    <p data-label={`${t("Ranking")}: `}>{driverStandings[driverStandings.length - 1].position}</p>
+                    <p data-label={`${t("BestFinish")}: `}>{results.reduce((acc, re) => re.positionOrder < acc.positionOrder ? re : acc).positionOrder}</p>
                     <p data-label={"Points: "}>{driverStandings[driverStandings.length-1].points}</p>
                 </div>
                 <div className="right-container">
-                    <p data-label={"Wins: "}>{results.filter(re => re.positionOrder === 1).length}</p>
+                    <p data-label={`${t("Wins")}: `}>{results.filter(re => re.positionOrder === 1).length}</p>
                     <p data-label={"Podiums: "}>{results.filter(re => re.positionOrder <= 3).length}</p>
                     <p data-label={"Poles: "}>{results.filter(re => re.grid === 1).length}</p>
                 </div>
@@ -288,11 +295,11 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
             <div className="graph-container">
               <div className="radio-buttons" onChange={e => setGraphData((e.target as HTMLInputElement).value)}>
                   <div className="label-input-container">
-                    <label htmlFor="races">Races</label>
+                    <label htmlFor="races">{t("Races")}</label>
                     <input type="radio" id="races" name="order" value="races" defaultChecked/>
                   </div>
                   <div className="label-input-container">
-                    <label htmlFor="qualifying">Qualifying</label>
+                    <label htmlFor="qualifying">{t("Qualifying")}</label>
                     <input type="radio" id="qualifying" name="order" value="qualifying"/>
                   </div>
                   <div className="label-input-container">
@@ -300,7 +307,7 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
                     <input type="radio" id="points" name="order" value="points"/>
                   </div>
                   <div className="label-input-container">
-                    <label htmlFor="standing">Standing</label>
+                    <label htmlFor="standing">{t("Standing")}</label>
                     <input type="radio" id="standing" name="order" value="standing"/>
                   </div>
               </div>
@@ -308,7 +315,7 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
                   <Line data={data} options={options}></Line>
               </div>
               <div className="select-container">
-                <Select2 data={otherDriverNames} label="Compare with : " onChange={handleOnChangeSelect} onUnselect={handleUnselect}/>
+                <Select2 data={otherDriverNames} label={`${t("CompareWith")} :`} onChange={handleOnChangeSelect} onUnselect={handleUnselect}/>
               </div>
             </div>
         </div>

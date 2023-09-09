@@ -1,9 +1,17 @@
+import { TFunction } from "i18next";
+
 // export const API_URL = "http://192.168.1.82:8080"
-export const API_URL = "http://192.168.0.15:8080"
+export const API_URL = "http://localhost:8080"
+
 
 export interface NationalityToFlag {
     [key: string]: string;
 };
+
+export const languageToFlag: NationalityToFlag = {
+    fr: "fr",
+    en: 'gb'
+}
 
 export const nationalityToFlag : NationalityToFlag = {
     Spanish : "es",
@@ -139,6 +147,10 @@ export function handleClickOutside(ref : React.RefObject<HTMLElement>, setVisibl
     return () => {
       document.removeEventListener('click', handleClickOutside, true);
     };
+}
+
+export function getTranslatedRaceName(race: Race, t: TFunction<"translation", undefined>): string {
+    return race.name === "Indianapolis 500" ? "Indianapolis 500" : t("raceNames.raceName", {gpName: t(`raceNames.gpName.${race.name.replace(" Grand Prix", "")}`)});
 }
 
 //TYPES

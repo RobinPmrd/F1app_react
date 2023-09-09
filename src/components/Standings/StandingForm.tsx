@@ -1,6 +1,7 @@
 import React from "react";
 import { Race } from "../../utils";
 import Select from "../Customs/Select";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     selectedRace: Race | undefined,
@@ -11,6 +12,8 @@ interface IProps {
 }
 
 function StandingForm({setSelectedRace, setSelectedSeason, selectedRace, selectedSeason, seasonRaces}: IProps) {
+    const {t} = useTranslation();
+    
     let seasons: number[] = [];
     for (let index = 2023; index >= 1950; index--) {
         seasons.push(index);
@@ -18,8 +21,8 @@ function StandingForm({setSelectedRace, setSelectedSeason, selectedRace, selecte
 
     return (
         <div className="search">
-            <Select label="Season :" data={seasons} setSelectValue={setSelectedSeason} value={selectedSeason.toString()} hasAll={false}/>
-            <Select label="After :" data={seasonRaces.map(race => race.name)} setSelectValue={setSelectedRace} value={selectedRace} hasAll={true} objectData={seasonRaces}/>
+            <Select label={`${t("Season")} :`} data={seasons} setSelectValue={setSelectedSeason} value={selectedSeason.toString()} hasAll={false}/>
+            <Select label={`${t("After")} :`} data={seasonRaces.map(race => race.name)} setSelectValue={setSelectedRace} value={selectedRace} hasAll={true} objectData={seasonRaces}/>
         </div>
     )
 }

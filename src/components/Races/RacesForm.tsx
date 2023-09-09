@@ -5,6 +5,7 @@ import { API_URL, Circuit, Driver, Race, countryToFlag, sort } from "../../utils
 import CustomSelect from "../Customs/CustomSelect";
 import InputSuggestion from "../Customs/InputSuggestion";
 import SortRadioButton from "../Customs/SortRadioButton";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
     races: Race[],
@@ -21,6 +22,7 @@ function RacesForm({races, wantedRaces, setWantedRaces}: IProps) {
     const [winner, setWinner] = useState<string>("");
     const [sortValue, setSortValue] = useState<string>("");
     const [sortOrder, setSortOrder] = useState<string>("acs");
+    const {t} = useTranslation();
 
     useEffect(() => {
         fetch(API_URL + "/circuits")
@@ -62,12 +64,12 @@ function RacesForm({races, wantedRaces, setWantedRaces}: IProps) {
 
     return (
         <form className="search" onSubmit={e => handleSubmit(e)}>
-            <CustomInputNumber label="Season" value={season ? season : -1} setValue={setSeason} min={1950} max={2023} />
+            <CustomInputNumber label={`${t("Season")} :`} value={season ? season : -1} setValue={setSeason} min={1950} max={2023} />
             <Select label="Circuit :" value={selectedcircuit} data={circuitNames} setSelectValue={setSelectedCircuit} hasAll={true}/>
-            <CustomSelect label="Country :" selectedNationality={country} setSelectedNationality={setCountry} ToFlag={countryToFlag}/>
-            <InputSuggestion data={driverNames} defaultText="Winner.." inputValue={winner} setInputValue={setWinner} />
+            <CustomSelect label={`${t("Country")} :`} selectedNationality={country} setSelectedNationality={setCountry} ToFlag={countryToFlag}/>
+            <InputSuggestion data={driverNames} defaultText={`${t("Winner")}..`} inputValue={winner} setInputValue={setWinner} />
             <button type="submit" name="search-button" className="search-button">🔎</button>
-            <SortRadioButton sortBy={[{year : "Season"}, {round : "Round"}, {country : "Country"}]} setSortOrder={setSortOrder} setSortedValue={setSortValue} />
+            <SortRadioButton sortBy={[{year : t("Season")}, {round : "Round"}, {country : t("Country")}]} setSortOrder={setSortOrder} setSortedValue={setSortValue} />
       </form>
     )
 }

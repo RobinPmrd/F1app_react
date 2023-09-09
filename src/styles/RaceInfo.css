@@ -14,6 +14,10 @@
   content: attr(data-label);
   font-weight: bold;
 }
+
+.race-details .fi {
+  width: 30px;
+}
   
 .button-container{
     display: flex;
