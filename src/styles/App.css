@@ -17,6 +17,11 @@ main {
   width: 100%;
 }
 
+.content-horizontally {
+  display: flex;
+  width: 100%;
+}
+
 .reviews {
   display: flex;
   flex-wrap: wrap;

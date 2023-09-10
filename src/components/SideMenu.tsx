@@ -5,12 +5,13 @@ import CustomSelect from './Customs/CustomSelect';
 import { languageToFlag } from '../utils';
 
 interface IProps {
+    language: string,
+    setLanguage: React.Dispatch<React.SetStateAction<string>>,
     onClick?: (value?: string) => void
 }
 
-function SideMenu({onClick} : IProps) {
+function SideMenu({language, setLanguage, onClick} : IProps) {
     const {t, i18n} = useTranslation();
-    const [language, setLanguage] = useState<string>("en")
 
     useEffect(() => {
         i18n.changeLanguage(language);
