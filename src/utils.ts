@@ -223,6 +223,7 @@ export interface DriverStandingRow {
 export interface TeamStandingRow {
     position: number;
     points: number;
+    constructorId: number,
     name: string;
     nationality: string;
 }
@@ -273,4 +274,22 @@ export interface DriverStanding {
     position: number,
     positionText: string,
     wins: number
+}
+
+export interface TeamStanding {
+    constructorStandingsId: number,
+	raceId: number,
+	constructorId: number,
+	points: number,
+	position: number;
+	positionText: string;
+	wins: number;
+}
+
+export interface TeamResult {
+	constructorResultsId : number,
+	raceId: number,
+	constructor: Team,
+	points: number,
+	status: string
 }

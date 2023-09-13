@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import "../../styles/Select.css"
-import { SelectedDriver } from "../Standings/Standings";
+import { SelectedDriver, SelectedTeam } from "../Standings/Standings";
 import { useTranslation } from "react-i18next";
 
 interface IProps {
     label: string,
     value?: string | Object,
-    data: SelectedDriver[],
+    data: SelectedDriver[] | SelectedTeam[],
     hasAll?: boolean,
     objectData?: Object[],
-    onChange?: (value: SelectedDriver) => void,
-    onUnselect?: (value: SelectedDriver) => void
+    onChange?: (value: any) => void,
+    onUnselect?: (value: any) => void
 }
 
 function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} : IProps) {
-    const [selectedValues, setSelectedValues] = useState<SelectedDriver[]>([]);
-    const [values, setValues] = useState<SelectedDriver[]>(data);
+    const [selectedValues, setSelectedValues] = useState<(SelectedDriver | SelectedTeam)[]>([]);
+    const [values, setValues] = useState<(SelectedDriver | SelectedTeam)[]>(data);
     const {t} = useTranslation();
     
     function handleOnChange(value: string) {
-        const va: SelectedDriver = JSON.parse(value);
+        const va: SelectedDriver | SelectedTeam = JSON.parse(value);
         
         if (onChange) onChange(va);
         setSelectedValues([...selectedValues, va]);
@@ -29,7 +29,7 @@ function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} 
         setValues([...v]);
     }
 
-    function handleOnClickLi(value: SelectedDriver) {
+    function handleOnClickLi(value: SelectedDriver | SelectedTeam) {
         if (onUnselect) onUnselect(value);
         setValues([...values, value]);
         let sv = [...selectedValues];
@@ -42,15 +42,15 @@ function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} 
             <div className="label-select">
                 <label>{label}</label>
                 <select onChange={(e) => handleOnChange(e.target.value)}>
-                    <option key={"first"}>{t("SelectDriver")}</option>
+                    <option key={"first"}>{"forename" in values[0] ? t("SelectDriver") : t("SelectTeam")}</option>
                     {values.map((v, index) => (
-                        <option key={v.id}  value={JSON.stringify(v)}>{v.forename + " " + v.surname}</option>
+                        <option key={v.id}  value={JSON.stringify(v)}>{"forename" in v ? v.forename + " " + v.surname : v.name}</option>
                     ))}
                 </select>
             </div>
             <ul className="select-list">
                 {selectedValues.map((v,index) => (
-                    <li key={v.id} onClick={() => handleOnClickLi(v)}>{v.forename + " " + v.surname}</li>
+                    <li key={v.id} onClick={() => handleOnClickLi(v)}>{"forename" in v ? v.forename + " " + v.surname : v.name}</li>
                 ))}
             </ul>
         </div>

@@ -6,6 +6,7 @@ import "../../styles/Standings.css"
 import TeamStanding from "./TeamStanding";
 import RaceInfo from "../Races/RaceInfo";
 import DriverSeason from "./DriverSeason";
+import TeamSeason from "./TeamSeason";
 
 
 interface IProps {
@@ -19,15 +20,23 @@ export interface SelectedDriver {
     surname: string
 }
 
+export interface SelectedTeam {
+    id: number,
+    name: string,
+}
+
 function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
     const [driverStanding, setDriverStanding] = useState<DriverStandingRow[]>([]);
     const [teamStanding, setTeamStanding] = useState<TeamStandingRow[]>([]);
     const [showRaceResult, setShowRaceResult] = useState<boolean>(false);
     const [showDriverSeason, setShowDriverSeason] = useState<boolean>(false);
+    const [showTeamSeason, setShowTeamSeason] = useState<boolean>(false);
     const [selectedSeason, setSelectedSeason] = useState<number>(2023);
     const [selectedRace, setSelectedRace] = useState<Race>();
     const [seasonRaces, setSeasonRaces] = useState<Race[]>([]);
     const [selectedDriver, setselectedDriver] = useState<SelectedDriver>();
+    const [selectedTeam, setSelectedTeam] = useState<SelectedTeam>();
+    const [selectedTeamDrivers, setSelectedTeamDrivers] = useState<SelectedDriver[]>([]);
 
 
     useEffect(() => {
@@ -55,6 +64,23 @@ function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
             .then(ts => setTeamStanding(ts))
     }, [selectedRace, selectedSeason])
 
+    useEffect(() => {
+      if (selectedTeam) {
+        const teamDrivers = driverStanding.filter(ds => ds.team === selectedTeam?.name).map(ds => {
+        return {
+            id: ds.driverId,
+            forename: ds.forename,
+            surname: ds.surname
+            }
+        }) 
+        setSelectedTeamDrivers(teamDrivers); 
+        setShowTeamSeason(true);
+      }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedTeam])
+
+
+
     function getOtherDrivers(): SelectedDriver[] {
         return driverStanding.filter(ds => ds.forename !== selectedDriver?.forename && ds.surname !== selectedDriver?.surname).map(ds => {
                 const driver: SelectedDriver = {
@@ -66,13 +92,22 @@ function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
         })
     }
 
+    function getOtherTeams(): SelectedTeam[] {
+        return teamStanding.filter(ts => ts.name !== selectedTeam?.name).map(ts => {
+            return {
+            id: ts.constructorId,
+            name: ts.name
+        }});
+    }
+
     return (
         <div className="content">
             {showRaceResult ?
             <RaceInfo race={selectedRace!} setShowRaceResult={setShowRaceResult} setHeaderText={setHeaderText} fromPage="Standings" setUpdateHeaderText={setUpdateHeaderText}/>
             : showDriverSeason ?
             <DriverSeason driver={selectedDriver!} season={selectedSeason} seasonRaces={seasonRaces.sort((r1, r2) => r1.round - r2.round)} setHeaderText={setHeaderText} setUpdateHeadertext={setUpdateHeaderText} setShowDriverSeason={setShowDriverSeason} otherDriverNames={getOtherDrivers()} fromPage="Standings"/>
-            :
+            : showTeamSeason ?
+            <TeamSeason team={selectedTeam!} teamDrivers={selectedTeamDrivers} season={selectedSeason} seasonRaces={seasonRaces.sort((r1, r2) => r1.round - r2.round)} setHeaderText={setHeaderText} setUpdateHeadertext={setUpdateHeaderText} setShowTeamSeason={setShowTeamSeason} otherTeamNames={getOtherTeams()} fromPage="Standings"/> :
             <div>
                 <StandingForm setSelectedRace={setSelectedRace} setSelectedSeason={setSelectedSeason} selectedRace={selectedRace} selectedSeason={selectedSeason} seasonRaces={seasonRaces}/>
             {selectedRace &&
@@ -82,7 +117,7 @@ function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
             }
                 <div className="standings-horizontally">
                     <DriverStanding driverStanding={driverStanding} setSelectedDriver={setselectedDriver} setShowDriverSeason={setShowDriverSeason}/>
-                    <TeamStanding teamStanding={teamStanding}/>
+                    <TeamStanding teamStanding={teamStanding} setSelectedTeam={setSelectedTeam}/>
                 </div>
             </div>
             }

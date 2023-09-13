@@ -40,13 +40,10 @@ interface IProps {
 }
 
 function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDriverSeason, setHeaderText, setUpdateHeadertext, fromPage}: IProps) {
-    const[results, setResults] = useState<Result[]>([]);
-    const[driverStandings, setDriverStandings] = useState<DriverStanding[]>([]);
     const[image, setImage] = useState<any>();
     const[graphData, setGraphData] = useState<string>("races");
-    const[driversToCompare, setDriversToCompare] = useState<SelectedDriver[]>([]);
-    const[driversToCompareResults, setDriversToCompareResults] = useState<Result[][]>([]);
-    const[driversToCompareStandings, setDriversToCompareStandings] = useState<DriverStanding[][]>([]);
+    const[driversResults, setDriversResults] = useState<Result[][]>([]);
+    const[driversStandings, setDriversStandings] = useState<DriverStanding[][]>([]);
     const {t} = useTranslation();
 
     const options = {
@@ -86,10 +83,15 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
       return graphData !== "points" && graphData !== "standing" ? t("GraphTitle1", {graphData: t(graphData.charAt(0).toUpperCase()+graphData.slice(1)).toLowerCase()})  : graphData === "points" ? t("GraphTitle2") : t("GraphTitle3") 
     }
       
-    const data = {
+  const data = {
       labels: seasonRaces.map(r => r.round),
-      datasets: setData()
-    };
+      datasets: driversResults.map((result, index) => {
+        return {label: result[0].driver.forename + " " + result[0].driver.surname,
+        data: getData(result, driversStandings[index]),
+        borderColor: getDriverColor(result[0].constructor.name),
+        backgroundColor: getDriverColor(result[0].constructor.name)}
+      })
+  };
 
     useEffect(() => {
       setUpdateHeadertext(false);
@@ -99,19 +101,19 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
     useEffect(() => {
         fetch(API_URL+"/results/"+driver.forename+"/"+driver.surname+"/"+season)
             .then(resp => resp.json())
-            .then(results => setResults(results));
+            .then(results => setDriversResults([results]));
         fetch(API_URL + "/standings/"+driver.id+"/"+seasonRaces.map(r => r.id))
           .then(resp => resp.json())
           .then(ds => {
             ds.sort((ds1: any, ds2:any) => seasonRaces.find(r => r.id === ds1.raceId)!.round - seasonRaces.find(r => r.id === ds2.raceId)!.round);
-            setDriverStandings(ds)})
+            setDriversStandings([ds])})
     }, [driver, season, seasonRaces])
 
     useEffect(() => {
       function fetchImage() {
         let image;
         try {
-            image = require(`../../images/drivers/${results[0].driver.driverRef}.png`);
+            image = require(`../../images/drivers/${driversResults[0][0].driver.driverRef}.png`);
         } catch (error) {
             image = require("../../images/drivers/unknown.jpg");
         }
@@ -120,11 +122,12 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
       const image = fetchImage();
       setImage(image);
       
-    }, [results]);
+    }, [driversResults]);
 
     function getData(results: Result[], driverStandings: DriverStanding[]): (number | null)[] {
-      const newResults = fillResults(results);
-      const newDriverResults = fillDriverStanding(driverStandings);
+      
+      const newResults: Result[] = fillData(results);
+      const newDriverResults: DriverStanding[] = fillData(driverStandings);
       
       if (graphData === "races") return newResults.map(re => re.positionOrder !== -1 ? re.positionOrder : null);
       else if (graphData === "qualifying") return newResults.map(re => re.grid !== -1 ? re.grid : null);
@@ -132,101 +135,78 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
       return newDriverResults.map(ds => ds.position !== -1 ? ds.position : null);
     }
 
-    function fillResults(results: Result[]): Result[] {
-      const emptyResult: Result = {
-        id: 0,
-        raceId: 0,
-        driver: {
-          id: 0,
-          driverRef: "",
-          number: 0,
-          code: 0,
-          forename: "",
-          surname: "",
-          dob: new Date(),
-          nationality: "",
-          url: "",
-          titles: 0,
-          grandprix: 0,
-          wins: 0,
-          podiums: 0,
-          poles: 0,
-          highestGridPosition: 0,
-          highestRacePosition: 0
-        },
-        constructor: {
-          id: 0,
-          constructorRef: "",
-          name: "",
-          nationality: "",
-          url: "",
-          titles: 0,
-          races: 0,
-          wins: 0
-        },
-        number: 0,
-        grid: -1,
-        position: 0,
-        positionText: "",
-        positionOrder: -1,
-        points: 0,
-        laps: 0,
-        time: "",
-        milliseconds: 0,
-        fastestLap: 0,
-        rank: 0,
-        fastestLapTime: "",
-        fastestLapSpeed: "",
-        status: {
-          id: 0,
-          status: ""
+    function fillData(data: Result[] | DriverStanding[]): any {
+      if (data !== undefined) {
+        var newResults: (Result | DriverStanding)[] = [...data];
+        if (data.length !== 0 && data.length !== seasonRaces.length) {
+          var emptyResult: Result | DriverStanding;
+          if ("grid" in data[0]) emptyResult= {
+              id: 0,
+              raceId: 0,
+              driver: {
+              id: 0,
+              driverRef: "",
+              number: 0,
+              code: 0,
+              forename: "",
+              surname: "",
+              dob: new Date(),
+              nationality: "",
+              url: "",
+              titles: 0,
+              grandprix: 0,
+              wins: 0,
+              podiums: 0,
+              poles: 0,
+              highestGridPosition: 0,
+              highestRacePosition: 0
+              },
+              constructor: {
+              id: 0,
+              constructorRef: "",
+              name: "",
+              nationality: "",
+              url: "",
+              titles: 0,
+              races: 0,
+              wins: 0
+              },
+              number: 0,
+              grid: -1,
+              position: 0,
+              positionText: "",
+              positionOrder: -1,
+              points: 0,
+              laps: 0,
+              time: "",
+              milliseconds: 0,
+              fastestLap: 0,
+              rank: 0,
+              fastestLapTime: "",
+              fastestLapSpeed: "",
+              status: {
+              id: 0,
+              status: ""
+              }
+          }
+          else emptyResult = {
+              driverStandingsId: 0,
+              raceId: 0,
+              driverId: 0,
+              points: -1,
+              position: -1,
+              positionText: "",
+              wins: 0
+            }
+              const firstResult: Result | DriverStanding = data[0]
+              for (let index = 0; index < seasonRaces.length; index++) {
+              if (seasonRaces[index].id < firstResult.raceId) newResults.unshift(emptyResult);
+              }
         }
       }
-      let newResults: Result[] = [...results];
-      if (results.length !== 0 && results.length !== seasonRaces.length) {
-        const firstResult: Result = results[0]
-        for (let index = 0; index < seasonRaces.length; index++) {
-          if (seasonRaces[index].id < firstResult.raceId) newResults.unshift(emptyResult);
-        }
-      }
+      else newResults = []
       return newResults;
-    }
-
-    function fillDriverStanding(driverStanding: DriverStanding[]): DriverStanding[] {
-      const emptyDriverStanding: DriverStanding = {
-        driverStandingsId: 0,
-        raceId: 0,
-        driverId: 0,
-        points: -1,
-        position: -1,
-        positionText: "",
-        wins: 0
-      }
-      let newDriverStanding: DriverStanding[] = [...driverStanding];
-      if (driverStanding.length !== 0 && driverStanding.length !== seasonRaces.length) {
-        const firstDriverStanding: DriverStanding = driverStanding[0]
-        for (let index = 0; index < seasonRaces.length; index++) {
-          if (seasonRaces[index].id < firstDriverStanding.raceId) newDriverStanding.unshift(emptyDriverStanding);
-        }
-      }
-      return newDriverStanding;
-    }
-
-    function setData() {
-      let data = [{
-        label: driver.forename + " " + driver.surname,
-        data: getData(results, driverStandings),
-        borderColor: results[0] ?  getDriverColor(results[0].constructor.name) : undefined,
-        backgroundColor: results[0] ? getDriverColor(results[0].constructor.name): undefined,
-      }];
-      driversToCompare.forEach((driver, index) => data.push({
-        label: driver.forename + " " + driver.surname,
-        data: getData(driversToCompareResults[index], driversToCompareStandings[index]),
-        borderColor: getDriverColor(driversToCompareResults[index][0].constructor.name),
-        backgroundColor: getDriverColor(driversToCompareResults[index][0].constructor.name),
-      }))
-      return data;
-    }
+  }
 
     // Create a function to get the computed color value
     function getDriverColor(teamName: string) {
@@ -243,26 +223,22 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
     async function handleOnChangeSelect(newDriver:  SelectedDriver) {
       await fetch(API_URL+"/results/"+newDriver.forename+"/"+newDriver.surname +"/"+season)
         .then(resp => resp.json())
-        .then(re => setDriversToCompareResults([...driversToCompareResults, re]))
+        .then(re => setDriversResults([...driversResults, re]))
       await fetch(API_URL + "/standings/"+newDriver.id+"/"+seasonRaces.map(r => r.id))
         .then(resp => resp.json())
-        .then(ds => setDriversToCompareStandings([...driversToCompareStandings, ds]))
-      setDriversToCompare([...driversToCompare, newDriver]);
+        .then(ds => setDriversStandings([...driversStandings, ds]))
     }
 
     function handleUnselect(value: SelectedDriver) {
-      let dtc = [...driversToCompare];
-      dtc.splice(dtc.indexOf(value),1);
-      setDriversToCompare([...dtc]);
-      let dtcr = [...driversToCompareResults];
+      let dtcr = [...driversResults];
       dtcr.splice(dtcr.findIndex(re => re[0].driver.forename + " " + re[0].driver.surname === value.forename + " " +value.surname),1);
-      setDriversToCompareResults([...dtcr]);
-      let dtcs = [...driversToCompareStandings];
+      setDriversResults([...dtcr]);
+      let dtcs = [...driversStandings];
       dtcs.splice(dtcs.findIndex(ds => ds[0].driverId === value.id),1);
-      setDriversToCompareStandings([...dtcs]);
+      setDriversStandings([...dtcs]);
     }
 
-    if (results.length === 0 || driverStandings.length === 0) return (
+    if (driversResults[0] === undefined || driversStandings[0] === undefined) return (
         <div className="loading-spinner"></div>
     )
 
@@ -276,20 +252,20 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
                     <img className="driver-avatar" src={image} alt={driver.surname} />
                     <p>
                         {driver.forename + " " + driver.surname}
-                        <span className={`fi fi-${nationalityToFlag[results[0].driver.nationality]}`}></span>
+                        <span className={`fi fi-${nationalityToFlag[driversResults[0][0].driver.nationality]}`}></span>
                     </p>
                     
-                    <p className="team">{results[0].constructor.name}</p>
+                    <p className="team">{driversResults[0][0].constructor.name}</p>
                 </div>
                 <div className="middle-container">
-                    <p data-label={`${t("Ranking")}: `}>{driverStandings[driverStandings.length - 1].position}</p>
-                    <p data-label={`${t("BestFinish")}: `}>{results.reduce((acc, re) => re.positionOrder < acc.positionOrder ? re : acc).positionOrder}</p>
-                    <p data-label={"Points: "}>{driverStandings[driverStandings.length-1].points}</p>
+                    <p data-label={`${t("Ranking")}: `}>{driversStandings[0][driversStandings[0].length - 1].position}</p>
+                    <p data-label={`${t("BestFinish")}: `}>{driversResults[0].reduce((acc, re) => re.positionOrder < acc.positionOrder ? re : acc).positionOrder}</p>
+                    <p data-label={"Points: "}>{driversStandings[0][driversStandings[0].length-1].points}</p>
                 </div>
                 <div className="right-container">
-                    <p data-label={`${t("Wins")}: `}>{results.filter(re => re.positionOrder === 1).length}</p>
-                    <p data-label={"Podiums: "}>{results.filter(re => re.positionOrder <= 3).length}</p>
-                    <p data-label={"Poles: "}>{results.filter(re => re.grid === 1).length}</p>
+                    <p data-label={`${t("Wins")}: `}>{driversResults[0].filter(re => re.positionOrder === 1).length}</p>
+                    <p data-label={"Podiums: "}>{driversResults[0].filter(re => re.positionOrder <= 3).length}</p>
+                    <p data-label={"Poles: "}>{driversResults[0].filter(re => re.grid === 1).length}</p>
                 </div>
             </div>
             <div className="graph-container">

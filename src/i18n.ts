@@ -27,6 +27,7 @@ i18n.use(initReactI18next).init({
         After: "After",
         All: "All",
         SelectDriver: "Select driver...",
+        SelectTeam: "Select team...",
         Titles: "Titles",
         Nationality: "Nationality",
         GetMore: "Get more",
@@ -244,7 +245,8 @@ i18n.use(initReactI18next).init({
           Suspension: "Suspension",
           Collision: "Collision",
           Accident: "Accident"
-        }
+        },
+        PointsPerRaces: "Points per races"
       },
     },
     fr: {
@@ -270,6 +272,7 @@ i18n.use(initReactI18next).init({
         After: "Après",
         All: "Tout",
         SelectDriver: "Choisir un pilote...",
+        SelectTeam: "Choisir une équipe...",
         Titles: "Titres",
         Nationality: "Nationalité",
         GetMore: "En savoir plus",
@@ -487,7 +490,8 @@ i18n.use(initReactI18next).init({
           Suspension: "Suspension",
           Collision: "Collision",
           Accident: "Accident"
-        }
+        },
+        PointsPerRaces: "Points/Courses"
       }, 
     },
   },
