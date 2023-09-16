@@ -1,5 +1,5 @@
 import React from "react";
-import { Race } from "../../utils";
+import { Race, getTranslatedRaceName } from "../../utils";
 import Select from "../Customs/Select";
 import { useTranslation } from "react-i18next";
 
@@ -22,7 +22,7 @@ function StandingForm({setSelectedRace, setSelectedSeason, selectedRace, selecte
     return (
         <div className="search">
             <Select label={`${t("Season")} :`} data={seasons} setSelectValue={setSelectedSeason} value={selectedSeason.toString()} hasAll={false}/>
-            <Select label={`${t("After")} :`} data={seasonRaces.map(race => race.name)} setSelectValue={setSelectedRace} value={selectedRace} hasAll={true} objectData={seasonRaces}/>
+            <Select label={`${t("After")} :`} data={seasonRaces.map(race => getTranslatedRaceName(race, t))} setSelectValue={setSelectedRace} value={selectedRace} hasAll={true} objectData={seasonRaces}/>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { API_URL, Race, Result, TeamResult, TeamStanding, nationalityToFlag } from "../../utils"
+import { API_URL, Driver, Race, Result, Team, TeamResult, TeamStanding, nationalityToFlag } from "../../utils"
 
 import {
     Chart as ChartJS,
@@ -14,7 +14,6 @@ import {
 
   import { Line } from 'react-chartjs-2';
 import Select2 from "../Customs/Select2";
-import { SelectedDriver, SelectedTeam } from "./Standings";
 import { useTranslation } from "react-i18next";
   
   ChartJS.register(
@@ -28,9 +27,9 @@ import { useTranslation } from "react-i18next";
   );
 
 interface IProps {
-    team: SelectedTeam,
-    teamDrivers: SelectedDriver[],
-    otherTeamNames: SelectedTeam[],
+    team: Team,
+    teamDrivers: Driver[],
+    otherTeamNames: Team[],
     season: number,
     seasonRaces: Race[],
     setShowTeamSeason: React.Dispatch<React.SetStateAction<boolean>>,
@@ -101,7 +100,7 @@ function TeamSeason({team, teamDrivers, otherTeamNames, season, seasonRaces, set
     }, [setHeaderText, season, t, setUpdateHeadertext])
 
     useEffect(() => {
-        fetch(API_URL+"/results/constructor/"+team.name+"/"+season)
+        fetch(API_URL+"/results/constructor/"+team.id+"/"+season)
             .then(resp => resp.json())
             .then(results => setTeamsResults([results]));
         fetch(API_URL + "/standings/constructors/id/"+team.id+"/"+seasonRaces.map(r => r.id))
@@ -113,7 +112,7 @@ function TeamSeason({team, teamDrivers, otherTeamNames, season, seasonRaces, set
 
     useEffect(() => {
       const teamDriverResultsPromises = teamDrivers.map(async (d) => {
-        const resp = await fetch(API_URL + "/results/" + d.forename + "/" + d.surname + "/" + season);
+        const resp = await fetch(API_URL + "/results/" + d.id + "/" + season);
         const results = await resp.json();
         return results;
       });
@@ -200,8 +199,8 @@ function TeamSeason({team, teamDrivers, otherTeamNames, season, seasonRaces, set
       setHeaderText(t(fromPage));
     }
 
-    async function handleOnChangeSelect(newTeam:  SelectedTeam) {
-      await fetch(API_URL+"/results/constructor/"+newTeam.name+"/"+season)
+    async function handleOnChangeSelect(newTeam:  Team) {
+      await fetch(API_URL+"/results/constructor/"+newTeam.id+"/"+season)
         .then(resp => resp.json())
         .then(re => setTeamsResults([...teamsResults, re]))
       await fetch(API_URL + "/standings/constructors/id/"+newTeam.id+"/"+seasonRaces.map(r => r.id))
@@ -210,9 +209,9 @@ function TeamSeason({team, teamDrivers, otherTeamNames, season, seasonRaces, set
     }
 
 
-    function handleUnselect(value: SelectedTeam) {
+    function handleUnselect(value: Team) {
       let dtcr = [...teamsResults];
-      dtcr.splice(dtcr.findIndex(re => re[0].constructor.name === value.name),1);
+      dtcr.splice(dtcr.findIndex(re => re[0].constructor.id === value.id),1);
       setTeamsResults([...dtcr]);
       let dtcs = [...teamsStandings];
       dtcs.splice(dtcs.findIndex(ts => ts[0].constructorId === value.id),1);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { API_URL, Qualifying, Race, Result, countryToFlag, getTranslatedRaceName } from "../../utils"
+import { API_URL, Qualifying, Race, Result, SprintResult, countryToFlag, getTranslatedRaceName } from "../../utils"
 import RaceResult from "./RaceResult";
 import "../../styles/RaceInfo.css"
 import QualifyingResult from "./QualifyingResult";
@@ -15,6 +15,7 @@ interface IProps {
 
 function RaceInfo({race, setShowRaceResult, setHeaderText, setUpdateHeaderText, fromPage}: IProps) {
     const[results, setResults] = useState<Result[]>([]);
+    const[sprintResults, setSprintResults] = useState<SprintResult[]>([]);
     const[qualifying, setQualifying] = useState<Qualifying[]>([]);
     const {t, i18n} = useTranslation();
 
@@ -22,11 +23,14 @@ function RaceInfo({race, setShowRaceResult, setHeaderText, setUpdateHeaderText, 
         setUpdateHeaderText(false);
         setHeaderText(t("HeaderTextRaceInfo", {raceName: getTranslatedRaceName(race, t), season: race.year}));
         fetch(API_URL + `/results/${race.id}`)
-        .then(resp => resp.json())
-        .then(results => setResults(results))
+            .then(resp => resp.json())
+            .then(results => setResults(results))
         fetch(API_URL + `/qualifying/${race.id}`)
-        .then(resp => resp.json())
-        .then(qualifying => setQualifying(qualifying))
+            .then(resp => resp.json())
+            .then(qualifying => setQualifying(qualifying))
+        fetch(API_URL + `/results/sprint/${race.id}`)
+            .then(resp => resp.json())
+            .then(sprintResults => setSprintResults(sprintResults))
     }, [setHeaderText, race, t, setUpdateHeaderText])
 
     function getDateFormat() {
@@ -57,8 +61,9 @@ function RaceInfo({race, setShowRaceResult, setHeaderText, setUpdateHeaderText, 
                 <p data-label={"Round: "}>{race.round}</p>
             </div>
             <section className="standings-vertically">
-                <RaceResult results={results}/>
+                <RaceResult results={results} caption={t("Race")}/>
                 <QualifyingResult  results={qualifying}/>
+                {sprintResults.length !== 0 && <RaceResult results={sprintResults!} caption={t("SprintRace")}/>}
             </section>
         </div>
     )

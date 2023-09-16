@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_URL, DriverStandingRow, Race, TeamStandingRow } from "../../utils";
+import { API_URL, Driver, DriverStandingRow, Race, Team, TeamStandingRow } from "../../utils";
 import DriverStanding from "./DriverStanding";
 import StandingForm from "./StandingForm";
 import "../../styles/Standings.css"
@@ -7,22 +7,12 @@ import TeamStanding from "./TeamStanding";
 import RaceInfo from "../Races/RaceInfo";
 import DriverSeason from "./DriverSeason";
 import TeamSeason from "./TeamSeason";
+import { useTranslation } from "react-i18next";
 
 
 interface IProps {
     setHeaderText: React.Dispatch<React.SetStateAction<string>>,
     setUpdateHeaderText: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export interface SelectedDriver {
-    id: number,
-    forename: string,
-    surname: string
-}
-
-export interface SelectedTeam {
-    id: number,
-    name: string,
 }
 
 function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
@@ -34,9 +24,10 @@ function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
     const [selectedSeason, setSelectedSeason] = useState<number>(2023);
     const [selectedRace, setSelectedRace] = useState<Race>();
     const [seasonRaces, setSeasonRaces] = useState<Race[]>([]);
-    const [selectedDriver, setselectedDriver] = useState<SelectedDriver>();
-    const [selectedTeam, setSelectedTeam] = useState<SelectedTeam>();
-    const [selectedTeamDrivers, setSelectedTeamDrivers] = useState<SelectedDriver[]>([]);
+    const [selectedDriver, setselectedDriver] = useState<Driver>();
+    const [selectedTeam, setSelectedTeam] = useState<Team>();
+    const [selectedTeamDrivers, setSelectedTeamDrivers] = useState<Driver[]>([]);
+    const {t} = useTranslation();
 
 
     useEffect(() => {
@@ -56,23 +47,17 @@ function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
     }, [selectedSeason]);
 
     useEffect(() => {
-        fetch(API_URL+"/standings/drivers/"+selectedSeason+(selectedRace === undefined ? "": "/"+selectedRace.name))
+        fetch(API_URL+"/standings/drivers/"+selectedSeason+(selectedRace === undefined ? "": "/"+selectedRace.id))
             .then(resp => resp.json())
             .then(ds => setDriverStanding(ds))
-        fetch(API_URL+"/standings/constructors/"+selectedSeason+(selectedRace=== undefined ? "":"/"+selectedRace.name))
+        fetch(API_URL+"/standings/constructors/"+selectedSeason+(selectedRace=== undefined ? "":"/"+selectedRace.id))
             .then(resp => resp.json())
             .then(ts => setTeamStanding(ts))
     }, [selectedRace, selectedSeason])
 
     useEffect(() => {
       if (selectedTeam) {
-        const teamDrivers = driverStanding.filter(ds => ds.team === selectedTeam?.name).map(ds => {
-        return {
-            id: ds.driverId,
-            forename: ds.forename,
-            surname: ds.surname
-            }
-        }) 
+        const teamDrivers = driverStanding.filter(ds => ds.team === selectedTeam?.name).map(ds => ds.driver) 
         setSelectedTeamDrivers(teamDrivers); 
         setShowTeamSeason(true);
       }
@@ -81,23 +66,12 @@ function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
 
 
 
-    function getOtherDrivers(): SelectedDriver[] {
-        return driverStanding.filter(ds => ds.forename !== selectedDriver?.forename && ds.surname !== selectedDriver?.surname).map(ds => {
-                const driver: SelectedDriver = {
-                    id: ds.driverId,
-                    forename: ds.forename,
-                    surname: ds.surname
-                }
-                return driver;
-        })
+    function getOtherDrivers(): Driver[] {
+        return driverStanding.filter(ds => ds.driver.id !== selectedDriver?.id).map(ds => ds.driver);
     }
 
-    function getOtherTeams(): SelectedTeam[] {
-        return teamStanding.filter(ts => ts.name !== selectedTeam?.name).map(ts => {
-            return {
-            id: ts.constructorId,
-            name: ts.name
-        }});
+    function getOtherTeams(): Team[] {
+        return teamStanding.filter(ts => ts.constructor.name !== selectedTeam?.name).map(ts => ts.constructor);
     }
 
     return (
@@ -112,7 +86,7 @@ function Standings({setHeaderText, setUpdateHeaderText}: IProps) {
                 <StandingForm setSelectedRace={setSelectedRace} setSelectedSeason={setSelectedSeason} selectedRace={selectedRace} selectedSeason={selectedSeason} seasonRaces={seasonRaces}/>
             {selectedRace &&
                 <div className="but-container">
-                    <button className="view-race" onClick={() => setShowRaceResult(true)}>View Race</button>
+                    <button className="view-race" onClick={() => setShowRaceResult(true)}>{t("ViewRaceDetails")}</button>
                 </div>
             }
                 <div className="standings-horizontally">

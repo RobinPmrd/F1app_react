@@ -19,6 +19,7 @@
   --Hrt-color: #D6C39A; 
   --Manor-color: #006DC1;
   --Lotus-color: #86995B;
+  --Brawn-color: #ccff00;
 }
 
 
@@ -230,6 +231,10 @@ table .table-content.Sauber .position {
 
 table .table-content.LotusF1 .position {
   border-right: 5px solid var(--Lotus-color);
+}
+
+table .table-content.Brawn .position {
+  border-right: 5px solid var(--Brawn-color);
 }
 
 .but-container {

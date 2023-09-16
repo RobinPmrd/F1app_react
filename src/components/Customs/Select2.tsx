@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "../../styles/Select.css"
-import { SelectedDriver, SelectedTeam } from "../Standings/Standings";
 import { useTranslation } from "react-i18next";
+import { Driver, Team } from "../../utils";
 
 interface IProps {
     label: string,
     value?: string | Object,
-    data: SelectedDriver[] | SelectedTeam[],
+    data: Driver[] | Team[],
     hasAll?: boolean,
     objectData?: Object[],
     onChange?: (value: any) => void,
@@ -14,12 +14,12 @@ interface IProps {
 }
 
 function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} : IProps) {
-    const [selectedValues, setSelectedValues] = useState<(SelectedDriver | SelectedTeam)[]>([]);
-    const [values, setValues] = useState<(SelectedDriver | SelectedTeam)[]>(data);
+    const [selectedValues, setSelectedValues] = useState<(Driver | Team)[]>([]);
+    const [values, setValues] = useState<(Driver | Team)[]>(data);
     const {t} = useTranslation();
     
     function handleOnChange(value: string) {
-        const va: SelectedDriver | SelectedTeam = JSON.parse(value);
+        const va: Driver | Team = JSON.parse(value);
         
         if (onChange) onChange(va);
         setSelectedValues([...selectedValues, va]);
@@ -29,7 +29,7 @@ function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} 
         setValues([...v]);
     }
 
-    function handleOnClickLi(value: SelectedDriver | SelectedTeam) {
+    function handleOnClickLi(value: Driver | Team) {
         if (onUnselect) onUnselect(value);
         setValues([...values, value]);
         let sv = [...selectedValues];

@@ -211,21 +211,16 @@ export interface Circuit {
 }
 
 export interface DriverStandingRow {
-    position: number;
-    points: number;
-    driverId: number;
-    forename: string;
-    surname: string;
-    team: string;
-    nationality: string;
+    driver: Driver,
+    position: number,
+    points: number,
+    team: string
 }
 
 export interface TeamStandingRow {
     position: number;
     points: number;
-    constructorId: number,
-    name: string;
-    nationality: string;
+    constructor: Team,
 }
 
 export interface Result {
@@ -246,6 +241,25 @@ export interface Result {
     rank: number
     fastestLapTime: string,
     fastestLapSpeed: string
+    status: Status
+}
+
+export interface SprintResult {
+    id: number,
+    raceId: number,
+    driver: Driver,
+    constructor: Team,
+    number: number,
+    grid: number,
+    position: number,
+    positionText: string,
+    positionOrder: number
+    points: number,
+    laps: number,
+    time: string,
+    milliseconds: number,
+    fastestLap: number,
+    fastestLapTime: string,
     status: Status
 }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { API_URL, DriverStanding, Race, Result, nationalityToFlag } from "../../utils"
+import { API_URL, Driver, DriverStanding, Race, Result, nationalityToFlag } from "../../utils"
 import "../../styles/DriverSeason.css"
 
 import {
@@ -15,7 +15,6 @@ import {
 
   import { Line } from 'react-chartjs-2';
 import Select2 from "../Customs/Select2";
-import { SelectedDriver } from "./Standings";
 import { useTranslation } from "react-i18next";
   
   ChartJS.register(
@@ -29,8 +28,8 @@ import { useTranslation } from "react-i18next";
   );
 
 interface IProps {
-    driver: SelectedDriver,
-    otherDriverNames: SelectedDriver[],
+    driver: Driver,
+    otherDriverNames: Driver[],
     season: number,
     seasonRaces: Race[],
     setShowDriverSeason: React.Dispatch<React.SetStateAction<boolean>>,
@@ -99,7 +98,7 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
     }, [setHeaderText, season, t, setUpdateHeadertext])
 
     useEffect(() => {
-        fetch(API_URL+"/results/"+driver.forename+"/"+driver.surname+"/"+season)
+        fetch(API_URL+"/results/"+driver.id+"/"+season)
             .then(resp => resp.json())
             .then(results => setDriversResults([results]));
         fetch(API_URL + "/standings/"+driver.id+"/"+seasonRaces.map(r => r.id))
@@ -220,8 +219,8 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
       setHeaderText(t(fromPage));
     }
 
-    async function handleOnChangeSelect(newDriver:  SelectedDriver) {
-      await fetch(API_URL+"/results/"+newDriver.forename+"/"+newDriver.surname +"/"+season)
+    async function handleOnChangeSelect(newDriver:  Driver) {
+      await fetch(API_URL+"/results/"+newDriver.id+"/"+season)
         .then(resp => resp.json())
         .then(re => setDriversResults([...driversResults, re]))
       await fetch(API_URL + "/standings/"+newDriver.id+"/"+seasonRaces.map(r => r.id))
@@ -229,9 +228,9 @@ function DriverSeason({driver, otherDriverNames, season, seasonRaces, setShowDri
         .then(ds => setDriversStandings([...driversStandings, ds]))
     }
 
-    function handleUnselect(value: SelectedDriver) {
+    function handleUnselect(value: Driver) {
       let dtcr = [...driversResults];
-      dtcr.splice(dtcr.findIndex(re => re[0].driver.forename + " " + re[0].driver.surname === value.forename + " " +value.surname),1);
+      dtcr.splice(dtcr.findIndex(re => re[0].driver.id === value.id),1);
       setDriversResults([...dtcr]);
       let dtcs = [...driversStandings];
       dtcs.splice(dtcs.findIndex(ds => ds[0].driverId === value.id),1);
