@@ -34,7 +34,7 @@ i18n.use(initReactI18next).init({
         Nationality: "Nationality",
         GetMore: "Get more",
         SortBy: "Sort by",
-        Name: "name",
+        Name: "Name",
         Acs: "Acs",
         Desc: "Desc",
         Country: "Country",

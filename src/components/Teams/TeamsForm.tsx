@@ -27,7 +27,9 @@ function TeamsForm({teams, setWantedTeams} : IProps) {
     const teamNames = teams.map(t => t.name);
 
     function filterAndSortTeam(teams : Team[]) {
-        let expectedTeams= inputName === "" ? teams.filter(t => compare(t.titles,inputTitles,inputTitlesOp) && compare(t.wins,inputWins,inputWinsOp) && compare(t.races,inputRaces, inputRacesOp) && (inputNationality === "All" || t.nationality === inputNationality)) : teams.filter(t => (t.name.toLowerCase()).includes(inputName.toLowerCase()) && compare(t.titles,inputTitles, inputTitlesOp) && compare(t.wins, inputWins, inputWinsOp) && compare(t.races, inputRaces, inputRacesOp)&& (inputNationality === "All" || t.nationality === inputNationality));
+        let expectedTeams= teams.filter(t => (inputName === "" || t.name.toLowerCase().includes(inputName.toLowerCase())) && 
+            (isNaN(inputTitles) || compare(t.titles,inputTitles,inputTitlesOp)) && ( isNaN(inputWins) || compare(t.wins,inputWins,inputWinsOp)) && 
+            (isNaN(inputRaces) || compare(t.races,inputRaces, inputRacesOp)) && (inputNationality === "All" || t.nationality === inputNationality));
         expectedTeams = expectedTeams.sort((t1,t2) => sort(t1[inputSortBy as keyof Team], t2[inputSortBy as keyof Team], inputSortBy, inputSortOrder));
         return expectedTeams;
     }

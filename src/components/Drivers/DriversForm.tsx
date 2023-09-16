@@ -28,8 +28,11 @@ function DriverForm({drivers, setWantedDrivers} : IProps) {
     const driverNames = drivers.map(d => d.surname);
 
     function filterAndSortDriver(drivers : Driver[]) {
-        let expected_drivers= inputName === "" ? drivers.filter(d => compare(d.titles,inputTitles,inputTitlesOp) && compare(d.wins,inputWins,inputWinsOp) && compare(d.grandprix,inputRaces, inputRacesOp) && (inputNationality === "All" || d.nationality === inputNationality)) : drivers.filter(d => (d.surname.toLowerCase()).includes(inputName.toLowerCase()) && compare(d.titles,inputTitles, inputTitlesOp) && compare(d.wins, inputWins, inputWinsOp) && compare(d.grandprix, inputRaces, inputRacesOp)&& (inputNationality === "All" || d.nationality === inputNationality));
+        let expected_drivers = drivers.filter(d => (inputName === "" || (d.surname.toLowerCase()).includes(inputName.toLowerCase())) && 
+            (isNaN(inputTitles) || compare(d.titles,inputTitles,inputTitlesOp)) && (isNaN(inputWins) || compare(d.wins,inputWins,inputWinsOp)) && 
+            (isNaN(inputRaces) || compare(d.grandprix,inputRaces, inputRacesOp)) && (inputNationality === "All" || d.nationality === inputNationality));
         expected_drivers = expected_drivers.sort((d1,d2) => sort(d1[inputSortBy as keyof Driver], d2[inputSortBy as keyof Driver], inputSortBy, inputSortOrder));
+        
         return expected_drivers;
     }
 
