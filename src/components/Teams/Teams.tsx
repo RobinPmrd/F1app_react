@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { API_URL, Team } from "../../utils"
+import { API_URL, Team, alphabeticOrder } from "../../utils"
 import TeamsForm from "./TeamsForm";
 import TeamReview from "./TeamReview";
 
@@ -11,9 +11,9 @@ function Teams() {
     useEffect(() => {
         fetch(API_URL + "/constructors")
         .then(resp => resp.json())
-        .then(teams => {
+        .then((teams: Team[]) => {
             setTeams(teams);
-            setWantedTeams(teams);
+            setWantedTeams(teams.sort((t1,t2) => alphabeticOrder(t1.name, t2.name)));
             setIsLoading(false);
         })
     }, []);

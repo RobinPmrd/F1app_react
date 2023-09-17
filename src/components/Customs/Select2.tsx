@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/Select.css"
 import { useTranslation } from "react-i18next";
-import { Driver, Team } from "../../utils";
+import { Driver, Team, alphabeticOrder } from "../../utils";
 
 interface IProps {
     label: string,
@@ -15,7 +15,8 @@ interface IProps {
 
 function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} : IProps) {
     const [selectedValues, setSelectedValues] = useState<(Driver | Team)[]>([]);
-    const [values, setValues] = useState<(Driver | Team)[]>(data);
+    const [values, setValues] = useState<(Driver | Team)[]>(data.sort((v1,v2) => "name" in v1 ? alphabeticOrder(v1.name, (v2 as Team).name)
+    : alphabeticOrder(v1.surname, (v2 as Driver).surname)));
     const {t} = useTranslation();
     
     function handleOnChange(value: string) {
@@ -31,7 +32,8 @@ function Select2({label, value, data, hasAll, objectData, onChange, onUnselect} 
 
     function handleOnClickLi(value: Driver | Team) {
         if (onUnselect) onUnselect(value);
-        setValues([...values, value]);
+        setValues([...values, value].sort((v1,v2) => "name" in v1 ? alphabeticOrder(v1.name, (v2 as Team).name)
+                                                                : alphabeticOrder(v1.surname, (v2 as Driver).surname)));
         let sv = [...selectedValues];
         sv.splice(sv.indexOf(value),1);
         setSelectedValues([...sv]);

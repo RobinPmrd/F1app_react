@@ -106,6 +106,11 @@ export const countryToFlag : NationalityToFlag = {
     Morocco : "ma"
 }
 
+export let seasons: number[] = [];
+for (let index = 2023; index >= 1950; index--) {
+    seasons.push(index);
+}
+
 /** 
  * Do a comparison between a and b, in function of op
  */
@@ -135,6 +140,10 @@ export function sort(a: any, b: any, type: string, order: string): number {
         return a > b ? 1 : a < b ? -1 : 0;
     }
     return b - a;
+}
+
+export function alphabeticOrder(a: string, b: string): number {
+    return a > b ? 1 : a < b ? -1 : 0;
 }
 
 export function handleClickOutside(ref : React.RefObject<HTMLElement>, setVisiblilty : React.Dispatch<React.SetStateAction<boolean>>) {
@@ -171,7 +180,8 @@ export interface Driver {
     podiums : number,
     poles : number,
     highestGridPosition : number,
-    highestRacePosition : number
+    highestRacePosition : number,
+    seasons?: string
 }
 
 export interface Team {

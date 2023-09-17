@@ -1,7 +1,6 @@
-import React from 'react';
 import { useEffect } from "react";
 import "../../styles/LoadingSpinner.css"
-import {API_URL, Driver} from "../../utils"
+import {API_URL, Driver, alphabeticOrder} from "../../utils"
 import { useState } from "react";
 import DriverReview from "./DriverReview";
 import DriverForm from './DriversForm';
@@ -14,9 +13,9 @@ function Drivers() {
     function fetchDrivers() {
         fetch(API_URL + "/drivers")
             .then(resp => resp.json())
-            .then(data => {
+            .then((data: Driver[]) => {
                 setDrivers(data);
-                setWantedDrivers(data);
+                setWantedDrivers(data.filter(d => d.seasons?.includes("2023")).sort((a,b) => alphabeticOrder(a.surname, b.surname)));
                 setIsLoading(false)
             });
     }
