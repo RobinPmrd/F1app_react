@@ -1,0 +1,18 @@
+.period {
+    margin-top: 0;
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 0;
+}
+
+.team-name-basics {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.team-name-basics span{
+    margin-left: 4px;
+}

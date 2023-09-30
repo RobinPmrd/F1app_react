@@ -5,9 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 interface IProps {
     driver : Driver,
+    
+    onClick?: (driver: Driver) => void
 }
 
-function DriverReview({driver} : IProps) {
+function DriverReview({driver, onClick} : IProps) {
     const {t} = useTranslation();
 
     try {
@@ -25,7 +27,7 @@ function DriverReview({driver} : IProps) {
 
 
     return (
-        <div className="driver-review">
+        <div className="driver-review" onClick={onClick && (() => onClick(driver))}>
             <img className="driver-avatar" src={images} alt={driver.surname}></img>
             <p className="driver-name">{`${driver.forename} ${driver.surname}`}</p>
             <p data-label={`${t("Nationality")}: `} className="driver-nationality">

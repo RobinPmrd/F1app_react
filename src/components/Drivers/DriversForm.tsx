@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import CustomSelect from "../Customs/CustomSelect";
 import { Driver, compare, nationalityToFlag, seasons, sort } from "../../utils";
 import "../../styles/DriverForm.css"
@@ -29,6 +29,19 @@ function DriverForm({drivers, setWantedDrivers} : IProps) {
 
     const driverNames = drivers.map(d => d.surname);
 
+    useEffect(() => {
+        if (localStorage.getItem("inputSeason")) {
+            setInputName(localStorage.getItem("inputName")!);
+            setInputSeason(parseInt(localStorage.getItem("inputSeason")!));
+            setInputTitles(parseInt(localStorage.getItem("inputTitles")!));
+            setInputWins(parseInt(localStorage.getItem("inputWins")!));
+            setInputRaces(parseInt(localStorage.getItem("inputRaces")!));
+            setInputNationality(localStorage.getItem("inputNationality")!);
+            setInputSortBy(localStorage.getItem("inputSortBy")!);
+            setInputSortOrder(localStorage.getItem("inputSortorder")!);
+        }
+    }, [])
+
     function filterAndSortDriver(drivers : Driver[]) {
         let expected_drivers = drivers.filter(d => (inputName === "" || (d.surname.toLowerCase()).includes(inputName.toLowerCase())) &&
             (inputSeason === "All" || d.seasons?.includes(inputSeason.toString())) && (isNaN(inputTitles) || compare(d.titles,inputTitles,inputTitlesOp)) && 
@@ -40,6 +53,14 @@ function DriverForm({drivers, setWantedDrivers} : IProps) {
 
     function handleSubmit(event : FormEvent) {
         event.preventDefault();
+        localStorage.setItem("inputName", inputName);
+        localStorage.setItem("inputSeason", inputSeason.toString());
+        localStorage.setItem("inputTitles", inputTitles.toString());
+        localStorage.setItem("inputWins", inputWins.toString());
+        localStorage.setItem("inputRaces", inputRaces.toString());
+        localStorage.setItem("inputNationality", inputNationality);
+        localStorage.setItem("inputSortBy", inputSortBy);
+        localStorage.setItem("inputSortorder", inputSortOrder);
         setWantedDrivers(filterAndSortDriver(drivers));
     }
 
@@ -47,9 +68,9 @@ function DriverForm({drivers, setWantedDrivers} : IProps) {
         <form className="search" onSubmit={e => handleSubmit(e)}>
             <InputSuggestion defaultText={`${t("Driver")}..`} data={driverNames} inputValue={inputName} setInputValue={setInputName} />
             <Select label={`${t("Season")} :`} data={seasons} setSelectValue={setInputSeason} value={inputSeason.toString()} hasAll={true}/>
-            <CustomInputNumber label={`N° ${t("Titles").toLowerCase()}`} setOp={setInputTitlesOp} setValue={setInputTitles} max={7} step={1} />
-            <CustomInputNumber label={`N° ${t("Wins").toLowerCase()}`} setOp={setInputWinsOp} setValue={setInputWins} max={110} step={5} />
-            <CustomInputNumber label={`N° ${t("Races").toLowerCase()}`} setOp={setInputRacesOp} setValue={setInputRaces} max={380} step={10} />
+            <CustomInputNumber label={`N° ${t("Titles").toLowerCase()}`} value={inputTitles} setOp={setInputTitlesOp} setValue={setInputTitles} max={7} step={1} />
+            <CustomInputNumber label={`N° ${t("Wins").toLowerCase()}`} value={inputWins} setOp={setInputWinsOp} setValue={setInputWins} max={110} step={5} />
+            <CustomInputNumber label={`N° ${t("Races").toLowerCase()}`} value={inputRaces} setOp={setInputRacesOp} setValue={setInputRaces} max={380} step={10} />
             <CustomSelect label={`${t("Nationality")} :`} selectedNationality={inputNationality} setSelectedNationality={setInputNationality} ToFlag={nationalityToFlag}/>
             <button type="submit" name="search-button" className="search-button">🔎</button>
             <SortRadioButton sortBy={[{surname : t("Name")}, {dob : "Age"}, {grandprix : t("Races")}, {wins : t("Wins")}, {titles : t("Titles")}]} setSortedValue={setInputSortBy} setSortOrder={setInputSortOrder} />

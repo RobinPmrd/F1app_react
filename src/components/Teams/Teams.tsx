@@ -13,7 +13,7 @@ function Teams() {
         .then(resp => resp.json())
         .then((teams: Team[]) => {
             setTeams(teams);
-            setWantedTeams(teams.sort((t1,t2) => alphabeticOrder(t1.name, t2.name)));
+            setWantedTeams(teams.filter(t => t.seasons?.includes(2023)).sort((t1,t2) => alphabeticOrder(t1.name, t2.name)));
             setIsLoading(false);
         })
     }, []);

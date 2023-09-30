@@ -5,16 +5,16 @@ import { useTranslation } from "react-i18next"
 
 interface IProps {
     race: Race,
-    setSelectedRace: React.Dispatch<React.SetStateAction<Race | undefined>>
-    setShowRaceResult: React.Dispatch<React.SetStateAction<boolean>>
+    setSelectedRace?: React.Dispatch<React.SetStateAction<Race | undefined>>
+    setShowRaceResult?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function RaceReview({race, setSelectedRace, setShowRaceResult}: IProps) {
     const {t} = useTranslation();
     
     function onClickRaceReview() {
-        setSelectedRace(race);
-        setShowRaceResult(true);
+        if (setSelectedRace) setSelectedRace(race);
+        if (setShowRaceResult) setShowRaceResult(true);
     }
 
     return (

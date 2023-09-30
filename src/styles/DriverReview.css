@@ -15,6 +15,15 @@
     border: 5px solid rgb(150, 54, 191);
     margin: 2px;
 }
+
+.driver-review:hover {
+    background-color: #38383f;
+    color: #ffffff;
+}
+
+.driver-review:hover .link a{
+    color: #ffffff;
+}
     
 .driver-avatar {
     width: 150px;

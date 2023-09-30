@@ -4,6 +4,7 @@
   align-items: center;
   row-gap: 0px;
   background-color: #f5f5f5;
+  min-width: 13%;
   width: 13%;
   padding: 10px;
   padding-right: 15px;

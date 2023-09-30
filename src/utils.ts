@@ -1,7 +1,7 @@
 import { TFunction } from "i18next";
 
-// export const API_URL = "http://192.168.1.82:8080"
-export const API_URL = "http://localhost:8080"
+export const API_URL = "http://10.35.130.42:8080"
+// export const API_URL = "http://localhost:8080"
 
 
 export interface NationalityToFlag {
@@ -181,7 +181,7 @@ export interface Driver {
     poles : number,
     highestGridPosition : number,
     highestRacePosition : number,
-    seasons?: string
+    seasons?: string,
 }
 
 export interface Team {
@@ -193,6 +193,8 @@ export interface Team {
     titles : number,
     races : number,
     wins : number,
+    driverSeasonPeriod?: string,
+    seasons?: number[]
 }
 
 export interface Race {
@@ -204,7 +206,6 @@ export interface Race {
     date: Date,
     time: string,
     url: string,
-    winner: string
 }
 
 export interface Circuit {
@@ -316,4 +317,10 @@ export interface TeamResult {
 	constructor: Team,
 	points: number,
 	status: string
+}
+
+export interface DriverTeamMate {
+    driver: Driver,
+    min: number,
+    max: number
 }

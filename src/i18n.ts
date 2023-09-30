@@ -248,7 +248,12 @@ i18n.use(initReactI18next).init({
           Collision: "Collision",
           Accident: "Accident"
         },
-        PointsPerRaces: "Points per races"
+        PointsPerRaces: "Points per races",
+        CareerOverview: "Career overview",
+        BestRaceFinish: "Best race finish",
+        BestQualifying: "Best qualifying",
+        WonRaces: "Won races",
+        TeamMates: "Team mates"
       },
     },
     fr: {
@@ -495,7 +500,12 @@ i18n.use(initReactI18next).init({
           Collision: "Collision",
           Accident: "Accident"
         },
-        PointsPerRaces: "Points/Courses"
+        PointsPerRaces: "Points/Courses",
+        CareerOverview: "Résultats en carrière",
+        BestRaceFinish: "Meilleur résultat en course",
+        BestQualifying: "Meilleur qualification",
+        WonRaces: "Course remportées",
+        TeamMates: "Coéquipiers"
       }, 
     },
   },

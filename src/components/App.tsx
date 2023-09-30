@@ -37,7 +37,7 @@ return (
         <div className="content-horizontally">
           <SideMenu language={language} setLanguage={setLanguage} onClick={(e) => handleSideMenuOnClick(e!)}/>
           {page === "Drivers" ? 
-            <Drivers /> : page === "Teams" ?
+            <Drivers setHeaderText={setHeaderText} setUpdateHeaderText={setUpdateHeaderText}/> : page === "Teams" ?
             <Teams /> : page === "Races" ?
             <Races setHeaderText={setHeaderText} setUpdateHeaderText={setUpdateHeaderText}/> : page === "Standings" &&
             <Standings setHeaderText={setHeaderText} setUpdateHeaderText={setUpdateHeaderText}/>
